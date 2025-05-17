@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
 import '../modules/SplashScreen/views/splash_screen_view.dart';
+import '../modules/admin/dashboard/bindings/dashboard_binding.dart';
+import '../modules/admin/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 
@@ -12,6 +14,7 @@ class AppPages {
 
   static const INITIAL = Routes.home;
   static const splashscreen = Routes.splashscreen;
+  static const DASHBOARD = Routes.DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -23,6 +26,11 @@ class AppPages {
       name: _Paths.splashscreen,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
     ),
   ];
 }
