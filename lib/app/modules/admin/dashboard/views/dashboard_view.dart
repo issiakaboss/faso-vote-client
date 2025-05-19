@@ -1,3 +1,5 @@
+import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
+import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/utils/constants/app_constant.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
@@ -27,39 +29,6 @@ class DashboardView extends GetView<DashboardController> {
                   : 10.0),
       color: Get.theme.scaffoldBackgroundColor,
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          leading: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.logo_dev),
-          ),
-          title: !isMobile
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.list),
-                      label: const Text("Toutes les votes"),
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade100,
-                        foregroundColor: Colors.blue.shade800,
-                      ),
-                    ),
-                    OutlinedButton.icon(
-                      icon: const Icon(Icons.wifi),
-                      label: const Text("Votes en cours"),
-                      onPressed: () {},
-                    ),
-                  ],
-                )
-              : const SizedBox.shrink(),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.language)),
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.account_circle)),
-          ],
-        ),
         body: LayoutBuilder(
           builder: (context, constraints) {
             return Padding(
@@ -67,10 +36,39 @@ class DashboardView extends GetView<DashboardController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: context.height / 8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(Icons.logo_dev),
+                        ),
+                        !isMobile ? ToggleVotes() : const SizedBox.shrink(),
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.language)),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.account_circle),
+                              iconSize: 50,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CustomText(text: "Toutes les votes"),
+                      CustomText(
+                        text: "Toutes les votes",
+                        style: AppTextStyles.heading4(),
+                      ),
                       CustomButton.primaryButton(
                           onPressed: () {}, buttonTitle: "Nouveau Vote"),
                     ],
