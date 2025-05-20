@@ -1,4 +1,4 @@
-import 'package:faso_vote_client/app/modules/home/controllers/home_controller.dart';
+import 'package:faso_vote_client/app/modules/user/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
