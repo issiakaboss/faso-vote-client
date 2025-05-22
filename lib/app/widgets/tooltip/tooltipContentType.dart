@@ -61,11 +61,7 @@ class _TooltipContentTextState extends State<TooltipContentText> {
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: GestureDetector(
-              onTap: () {
-                Functions.copyText(
-                    text: value ?? "",
-                    message: LocaleKeys.id_transaction_copied.tr);
-              },
+              onTap: () {},
               child: const Icon(Icons.copy, size: 20, color: Colors.grey),
             ),
           ),

@@ -7,6 +7,63 @@ import '../../widgets/custom_text_form_field.dart';
 import '../validators/form_validator.dart';
 
 class DialogHelper {
+
+    static void showLoading({String? message, bool isWeb = true}) {
+    Get.dialog(
+      barrierDismissible: false,
+      barrierColor: Colors.black54,
+      Dialog(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Colors.black.withOpacity(0.1),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (isWeb)
+                  const SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 4,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  )
+                else
+                  const CircularProgressIndicator(),
+                if (message != null) ...[
+                  const SizedBox(height: 16),
+                  Text(
+                    message,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  //hide loading
+  static void hideLoading() {
+    if (Get.isDialogOpen!) Get.back();
+  }
   // Show an error snackbar
   static void showErrorSnackbar(
       {String title = 'Error', required String message}) {

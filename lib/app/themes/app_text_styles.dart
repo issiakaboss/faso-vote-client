@@ -43,8 +43,8 @@ class AppTextStyles {
       fontSize: 24,
       fontWeight: FontWeight.w600,
       color: context != null
-          ? Theme.of(context).textTheme.headlineSmall?.color
-          : Get.theme.textTheme.headlineSmall?.color,
+          ? Theme.of(context).textTheme.headlineMedium?.color
+          : Get.theme.textTheme.headlineMedium?.color,
     );
   }
 
@@ -53,18 +53,18 @@ class AppTextStyles {
       fontSize: 22,
       fontWeight: FontWeight.bold,
       color: context != null
-          ? Theme.of(context).textTheme.bodyLarge?.color
-          : Get.theme.textTheme.bodyLarge?.color,
+          ? Theme.of(context).textTheme.headlineMedium?.color
+          : Get.theme.textTheme.headlineMedium?.color,
     );
   }
 
   static TextStyle heading5({BuildContext? context}) {
     return GoogleFonts.figtree(
-      fontSize: 19,
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       color: context != null
-          ? Theme.of(context).textTheme.bodyMedium?.color
-          : Get.theme.textTheme.bodyMedium?.color,
+          ? Theme.of(context).textTheme.headlineSmall?.color
+          : Get.theme.textTheme.headlineSmall?.color,
     );
   }
 
@@ -93,8 +93,8 @@ class AppTextStyles {
       fontSize: 17,
       fontWeight: FontWeight.bold,
       color: context != null
-          ? Theme.of(context).textTheme.bodyMedium?.color
-          : Get.theme.textTheme.bodyMedium?.color,
+          ? Theme.of(context).textTheme.bodyLarge?.color
+          : Get.theme.textTheme.bodyLarge?.color,
     );
   }
 
@@ -113,15 +113,15 @@ class AppTextStyles {
       fontSize: 14,
       fontWeight: FontWeight.normal,
       color: context != null
-          ? Theme.of(context).textTheme.bodySmall?.color
-          : Get.theme.textTheme.bodySmall?.color,
+          ? Theme.of(context).textTheme.bodyMedium?.color
+          : Get.theme.textTheme.bodyMedium?.color,
     );
   }
 
   static TextStyle bodyText2Bold({BuildContext? context}) {
     return GoogleFonts.figtree(
       fontSize: 14,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.bold,
       color: context != null
           ? Theme.of(context).textTheme.bodyMedium?.color
           : Get.theme.textTheme.bodyMedium?.color,
@@ -193,8 +193,8 @@ class AppTextStyles {
       fontSize: 16,
       fontWeight: FontWeight.normal,
       color: context != null
-          ? Theme.of(context).textTheme.bodyMedium?.color
-          : Get.theme.textTheme.bodyMedium?.color,
+          ? Theme.of(context).textTheme.labelLarge?.color
+          : Get.theme.textTheme.labelLarge?.color,
     );
   }
 

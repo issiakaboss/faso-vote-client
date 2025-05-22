@@ -15,13 +15,4 @@ class Env {
   static String get production => ".env.production";
   static bool get isLocal => false;
 
-  static String get orangeMAdress =>
-      dotenv.get("ORANGE_MESSAGE_ADRESS", fallback: "");
-  static String get moovMAdress =>
-      dotenv.get("MOOV_MESSAGE_ADRESS", fallback: "");
-
-  static String get orangeCAdress =>
-      dotenv.get("ORANGE_CENTER_ADRESS", fallback: "");
-  static String get moovCAdress =>
-      dotenv.get("MOOV_CENTER_ADRESS", fallback: "");
 }

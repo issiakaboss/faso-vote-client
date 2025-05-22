@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   final AutovalidateMode autovalidateMode;
   final String? labelText;
   final String? hintText;
+  final int maxLines;
   final RxnString? errorMessage;
   final TextInputType? keyboardType;
   final bool obscureText;
@@ -24,8 +25,10 @@ class CustomTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool isReadOnly;
   final bool showCountries;
+  final Color? fillColor;
   final List<TextInputFormatter>? inputFormatters;
   final RxString? selectedCountryCode;
+  final TextStyle? labelStyle;
 
   const CustomTextFormField({
     super.key,
@@ -47,6 +50,9 @@ class CustomTextFormField extends StatelessWidget {
     this.inputFormatters,
     this.showCountries = false,
     this.selectedCountryCode,
+    this.fillColor,
+    this.maxLines = 1,
+    this.labelStyle,
   });
 
   @override
@@ -56,7 +62,7 @@ class CustomTextFormField extends StatelessWidget {
       children: [
         CustomText(
           text: labelText ?? '',
-          style: AppTextStyles.inputLabel(),
+          style: labelStyle ?? AppTextStyles.inputLabel(),
           overflow: TextOverflow.visible,
         ),
         Row(
@@ -81,28 +87,35 @@ class CustomTextFormField extends StatelessWidget {
                 onTap: onTap,
                 onChanged: onChanged,
                 autovalidateMode: autovalidateMode,
+                maxLines: maxLines,
                 decoration: InputDecoration(
                   hintText: hintText,
                   prefixIcon: prefix,
                   suffixIcon: suffix,
-                  contentPadding: const EdgeInsets.only(top: 25.0),
-                  border: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  hintStyle: AppTextStyles.inputLabel()
+                      .copyWith(color: const Color(0xff808080)),
+                  contentPadding: const EdgeInsets.only(top: 25.0, left: 10),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 0.8),
                   ),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                        color: const Color(0xff013237).withOpacity(0.1),
+                        width: 1.2),
                   ),
-                  focusedBorder: const UnderlineInputBorder(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
                     borderSide:
-                        BorderSide(color: AppColors.primary, width: 2.0),
+                        const BorderSide(color: Color(0xff013237), width: 1.2),
                   ),
                   errorStyle: const TextStyle(
                     fontSize: 0,
                     height: 0,
                     color: Colors.transparent,
                   ),
-                  filled: false,
-                  fillColor: AppColors.primary,
+                  filled: true,
+                  fillColor: fillColor ?? Get.theme.cardColor,
                 ),
                 inputFormatters: inputFormatters,
               ),

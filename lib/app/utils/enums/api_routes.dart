@@ -6,22 +6,12 @@ enum ApiRoutes {
   storeSecret('v1/app/store-secret'),
   storePhone('v1/app/phones'),
   removePhone('v1/app/phones/{phone}/delete'),
-  refreshWithSecret('v1/app/refresh-with-secret'),
   resendOtp('v1/app/phones/{phone_id}/resend-otp'),
   verifyOtp('v1/app/phones/{phone_id}/verify/{code}'),
-// transactions actions
-  depositMethods('v1/app/transactions/deposit-methods'),
-  storeDeposit('v1/app/transactions/store-deposit'),
-  storeWithdraw('v1/app/transactions/store-withdraw/{phone}'),
-  transfert('v1/app/transactions/store-transfert'),
-  generateOtp('v1/app/transactions/generate-payment'),
-// transaction fetching data
-  walletData('v1/app/transactions/card'),
-  transactionHistory('v1/app/transactions/{type}/histories?page={pageKey}'),
-//get transaction type
-  transactionsTypes('v1/app/transactions/types'),
-  deletePendingPayment('v1/app/transactions/{pendingPayment}/delete'),
-  pendingPayments('v1/app/transactions/pending-payments');
+
+// vote route
+  votes('votes'),
+  updateVote('votes/{vote}');
 
   final String path;
   const ApiRoutes(this.path);
