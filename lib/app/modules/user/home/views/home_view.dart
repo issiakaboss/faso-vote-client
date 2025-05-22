@@ -12,6 +12,7 @@ class HomeView extends GetView<HomeController> {
   @override
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Obx(
@@ -19,7 +20,7 @@ class HomeView extends GetView<HomeController> {
           child: Center(
             child: Column(
               children: [
-                const SizedBox(height: 20), // remplace le Padding global ici
+                const SizedBox(height: 20),
                 const CircleAvatar(
                   radius: 32,
                   backgroundImage: AssetImage('assets/images/logo.png'),
@@ -43,7 +44,6 @@ class HomeView extends GetView<HomeController> {
                 const SizedBox(height: 20),
                 _buildTabBar(),
                 const SizedBox(height: 24),
-
                 controller.selectedTab.value == 0
                     ? Padding(
                         padding: const EdgeInsets.only(
@@ -136,85 +136,100 @@ class HomeView extends GetView<HomeController> {
         ),
         controller.selectedTab.value == 0
             ? Container()
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  resultCard("8000", "Votes total", Colors.black),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: resultCard("4000", "Ayant voté", Colors.green),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: resultCard("4000", "Non voté", Colors.red),
-                  ),
-                ],
+            : LayoutBuilder(
+                builder: (context, constraints) {
+                  int columnCount = 1;
+                  double width = constraints.maxWidth;
+
+                  if (width >= 1024) {
+                    columnCount = 3;
+                  }
+                  const spacing = 10.0;
+                  final cardWidth =
+                      (width - (columnCount - 1) * spacing) / columnCount;
+
+                  return Wrap(
+                    spacing: spacing,
+                    runSpacing: spacing,
+                    children: [
+                      resultCard("8000", "Votes total", Colors.black,
+                          width: cardWidth),
+                      resultCard("4000", "Ayant voté", Colors.green,
+                          width: cardWidth),
+                      resultCard("4000", "Non voté", Colors.red,
+                          width: cardWidth),
+                    ],
+                  );
+                },
               ),
         const SizedBox(height: 16),
-        Obx(() => Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              children: controller.candidates.map((candidate) {
-                return MainCard(
-                  padding: const EdgeInsets.all(12),
-                  cardWidth: Get.width / 4.9,
-                  cardHeight: Get.height / 2.5,
-                  cardColor: Colors.white,
-                  borderWidth: 0.5,
-                  borderColor: Colors.grey.shade200,
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.network(
-                          candidate['image'].toString(),
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.person,
-                                  size: 80, color: Colors.grey),
-                        ),
+        Obx(
+          () => Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: controller.candidates.map((candidate) {
+              return MainCard(
+                padding: const EdgeInsets.all(12),
+                cardWidth: Get.width / 4.9,
+                cardHeight: Get.height / 2.5,
+                cardColor: Colors.white,
+                borderWidth: 0.5,
+                borderColor: Colors.grey.shade200,
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.network(
+                        candidate['image'].toString(),
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.person,
+                                size: 80, color: Colors.grey),
                       ),
-                      const SizedBox(height: 10),
-                      CustomText(
-                        text: candidate['name'] ?? '',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    CustomText(
+                      text: candidate['name'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
-                      const SizedBox(height: 12),
-                      CustomText(
-                        text: candidate['title'] ?? '',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
+                    ),
+                    const SizedBox(height: 12),
+                    CustomText(
+                      text: candidate['title'] ?? '',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
                       ),
-                      const SizedBox(height: 20),
-                      bouton ??
-                          MainButton(
-                            onPressed: () {},
-                            text: "Voter",
-                            height: 35,
-                            textcolor: Colors.white,
-                            color: AppColors.primary,
-                          )
-                    ],
-                  ),
-                );
-              }).toList(),
-            )),
+                    ),
+                    const SizedBox(height: 20),
+                    bouton ??
+                        MainButton(
+                          onPressed: () {},
+                          text: "Voter",
+                          height: 35,
+                          textcolor: Colors.white,
+                          color: AppColors.primary,
+                        )
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        ),
       ],
     );
   }
 
-  Widget resultCard(String title, String value, Color color) {
+  Widget resultCard(String title, String value, Color color,
+      {required double width}) {
     return MainCard(
       padding: const EdgeInsets.all(10),
-      cardWidth: 350,
+      cardWidth: width / 1.06,
       cardHeight: 80,
       cardColor: AppColors.secondary,
       borderColor: Colors.transparent,

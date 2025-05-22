@@ -125,6 +125,11 @@
   "phone_success_delete":"Phone successfuly delete",
 
   "no_results_found":"No result find",
+  "liste_candidate_title": "Candidates list",
+  "liste_result_title": "Voting results",
+  "resultat": "Results",
+  "candidat": "Candidates",
+  "voter": "Vote",
 
     "buttons": {
       "no": "No",
