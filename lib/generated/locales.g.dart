@@ -39,9 +39,15 @@ class LocaleKeys {
   static const log_out = 'log_out';
   static const all_votes = 'all_votes';
   static const pending_votes = 'pending_votes';
+  static const create_vote_title = 'create_vote_title';
+  static const enter_event_name = 'enter_event_name';
+  static const add_logo = 'add_logo';
+  static const description = 'description';
+  static const enter_description = 'enter_description';
   static const buttons_no = 'buttons_no';
   static const buttons_yes = 'buttons_yes';
   static const buttons_continuous = 'buttons_continuous';
+  static const buttons_save = 'buttons_save';
   static const buttons_cancel = 'buttons_cancel';
   static const buttons_update = 'buttons_update';
   static const buttons_confirm = 'buttons_confirm';
@@ -101,9 +107,15 @@ class Locales {
     'log_out': 'Log out',
     'all_votes': 'All votes',
     'pending_votes': 'Pending votes',
+    'create_vote_title': 'Create new vote',
+    'enter_event_name': 'Enter the event name',
+    'add_logo': 'Add a logo',
+    'description': 'Description',
+    'enter_description': 'Add description to help electors',
     'buttons_no': 'No',
     'buttons_yes': 'Yes',
     'buttons_continuous': 'Continuous',
+    'buttons_save': 'Save',
     'buttons_cancel': 'Cancel',
     'buttons_update': 'Update',
     'buttons_confirm': 'Confirm',
@@ -162,10 +174,16 @@ class Locales {
     'addPhone_loading': 'Ajout de téléphone.....',
     'all_votes': 'Toutes les votes',
     'pending_votes': 'Votes en cours',
+    'create_vote_title': 'Créer un nouveau vote',
+    'enter_event_name': 'Entrer le nom de l\'evenement',
+    'add_logo': 'Ajouter un logo',
+    'description': 'Description',
+    'enter_description': 'Ajouter une description pour aider les votants',
     'buttons_no': 'Non',
     'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',
     'buttons_confirm': 'Confirmer',
+    'buttons_save': 'Enrégistrer',
     'buttons_cancel': 'Annuler',
     'buttons_update': 'Mettre à jour',
     'buttons_verify_now': 'Verifier maintenant',

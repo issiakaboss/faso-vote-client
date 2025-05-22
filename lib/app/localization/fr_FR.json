@@ -1,6 +1,6 @@
 {
   "app_name": "Faso vote",
-    "login": "Se connecter",
+  "login": "Se connecter",
   "login_description": "Entrez vos données d'accès pour vous connecter.",
   "phone": "Numéro de téléphone",
   "password": "Mot de passe",
@@ -53,11 +53,18 @@
   "all_votes":"Toutes les votes",
   "pending_votes":"Votes en cours",
 
+  "create_vote_title":"Créer un nouveau vote",
+  "enter_event_name":"Entrer le nom de l'evenement",
+  "add_logo":"Ajouter un logo",
+  "description":"Description",
+  "enter_description":"Ajouter une description pour aider les votants",
+
     "buttons": {
       "no": "Non",
       "yes": "Oui",
       "continuous": "Continuer",
       "confirm": "Confirmer",
+      "save": "Enrégistrer",
       "cancel": "Annuler",
       "update": "Mettre à jour",
       "verify_now": "Verifier maintenant",

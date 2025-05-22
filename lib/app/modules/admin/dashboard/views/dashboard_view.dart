@@ -1,4 +1,5 @@
 import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/utils/constants/app_constant.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
@@ -114,7 +115,9 @@ class DashboardView extends GetView<DashboardController> {
                                 const SizedBox(height: 10),
                                 CustomButton.primaryButton(
                                   elevation: 0.0,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.toNamed(AppPages.ADDING_VOTE);
+                                  },
                                   prefix: const Icon(Icons.add,
                                       color: Colors.white),
                                   buttonTitle: LocaleKeys.buttons_new_vote.tr,
@@ -131,7 +134,9 @@ class DashboardView extends GetView<DashboardController> {
                                 ),
                                 CustomButton.primaryButton(
                                   elevation: 0.0,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.toNamed(AppPages.ADDING_VOTE);
+                                  },
                                   prefix: const Icon(Icons.add,
                                       color: Colors.white),
                                   buttonTitle: LocaleKeys.buttons_new_vote.tr,

@@ -10,6 +10,7 @@ class AppColors {
   static const Color error = Color(0xFFB00020); // Couleur d'erreur
   static const Color success = Color(0xFF4CAF50); // Succès
   static const Color warning = Color(0xFFFFC107); // Avertissement
+  static const Color cancel = Color.fromARGB(255, 245, 100, 3); // Avertissement
   static const Color info = Color(0xFF2196F3); // Info
   static const Color dep_wihd_icon_back_color =
       Color(0xFFFFF4EB); // couleur arriere plan d'icons de depot et retrait

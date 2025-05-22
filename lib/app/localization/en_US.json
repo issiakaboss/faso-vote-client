@@ -32,10 +32,17 @@
   "all_votes":"All votes",
   "pending_votes":"Pending votes",
 
+  "create_vote_title":"Create new vote",
+  "enter_event_name":"Enter the event name",
+  "add_logo":"Add a logo",
+  "description":"Description",
+  "enter_description":"Add description to help electors",
+
     "buttons": {
       "no": "No",
       "yes": "Yes",
       "continuous": "Continuous",
+      "save": "Save",
       "cancel": "Cancel",
       "update": "Update",
       "confirm": "Confirm",

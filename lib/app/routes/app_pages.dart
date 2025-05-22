@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
 import '../modules/SplashScreen/views/splash_screen_view.dart';
+import '../modules/admin/AddingVote/bindings/adding_vote_binding.dart';
+import '../modules/admin/AddingVote/views/adding_vote_view.dart';
 import '../modules/admin/dashboard/bindings/dashboard_binding.dart';
 import '../modules/admin/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -15,6 +17,7 @@ class AppPages {
   static const INITIAL = Routes.home;
   static const splashscreen = Routes.splashscreen;
   static const DASHBOARD = Routes.DASHBOARD;
+  static const ADDING_VOTE = Routes.ADDING_VOTE;
 
   static final routes = [
     GetPage(
@@ -31,6 +34,11 @@ class AppPages {
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDING_VOTE,
+      page: () => const AddingVoteView(),
+      binding: AddingVoteBinding(),
     ),
   ];
 }

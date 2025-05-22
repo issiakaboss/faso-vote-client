@@ -119,22 +119,7 @@ class AuthProvider with BaseController {
     }
   }
 
-  Future<void> refreshWithSecret({
-    required String secret,
-    ValueSetter? error,
-  }) async {
-    try {
-      return await ApiProvider.post(
-        auth: true,
-        apiURL: ApiRoutes.refreshWithSecret.path,
-        data: {'secret': secret},
-      ).catchError(handleError).then((response) {
-        if (response != null) {}
-      });
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Refresh secret error: $e");
-    }
-  }
+  
 
   Future<bool> logout() async {
     try {

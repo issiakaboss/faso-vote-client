@@ -13,4 +13,14 @@ class VoteModel {
     required this.duration,
     required this.status,
   });
+
+  factory VoteModel.fromJson(Map<String, dynamic> json) {
+  return VoteModel(
+    title: json['title'],
+    location: json['location'],
+    date: json['date'],
+    duration: json['duration'],
+    status: json['status'],
+  );
+}
 }

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../../data/models/vote.dart';
+import '../../../../data/providers/vote_provider.dart';
 
 class DashboardController extends GetxController {
   final votes = <VoteModel>[].obs;
@@ -21,7 +22,11 @@ class DashboardController extends GetxController {
     super.onClose();
   }
 
-  void _loadVotes() {
+  void _loadVotes() async {
+    //    final voteList = await VoteProvider().fetchVotes(
+    //   onError: (error) => Get.snackbar('Erreur', error),
+    // );
+    // votes.value = voteList;
     votes.value = [
       VoteModel(
         title: "Ministère de l'éducation",

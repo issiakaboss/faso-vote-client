@@ -193,8 +193,8 @@ class AppTextStyles {
       fontSize: 16,
       fontWeight: FontWeight.normal,
       color: context != null
-          ? Theme.of(context).textTheme.bodyMedium?.color
-          : Get.theme.textTheme.bodyMedium?.color,
+          ? Theme.of(context).textTheme.labelLarge?.color
+          : Get.theme.textTheme.labelLarge?.color,
     );
   }
 
