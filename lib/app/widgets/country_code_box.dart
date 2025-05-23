@@ -10,7 +10,7 @@ CountryCodePicker contryCodeBox({RxString? selectedCode}) {
     },
     initialSelection: "Burkina Faso",
     favorite: const ["Burkina Faso"],
-    enabled: false,
+    enabled: true,
     closeIcon: Icon(
       Icons.close,
       color: Theme.of(Get.context!).primaryColor,

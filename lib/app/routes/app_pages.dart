@@ -1,5 +1,6 @@
+import 'package:faso_vote_client/app/modules/user/canalvote/bindings/canalvote_binding.dart';
+import 'package:faso_vote_client/app/modules/user/canalvote/views/canalvote_view.dart';
 import 'package:get/get.dart';
-
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
 import '../modules/SplashScreen/views/splash_screen_view.dart';
 import '../modules/user/home/bindings/home_binding.dart';
@@ -23,6 +24,11 @@ class AppPages {
       name: _Paths.splashscreen,
       page: () => const SplashScreenView(),
       binding: SplashScreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.CANALVOTE,
+      page: () => const CanalvoteView(),
+      binding: CanalvoteBinding(),
     ),
   ];
 }

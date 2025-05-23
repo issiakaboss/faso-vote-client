@@ -1,7 +1,4 @@
-import 'package:faso_vote_client/main.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 class DottedProgressBar extends StatelessWidget {
   final double progress;
   final int totalDots;

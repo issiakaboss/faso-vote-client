@@ -1,5 +1,7 @@
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_card.dart';
+import 'package:faso_vote_client/app/widgets/custom_popup.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +14,6 @@ class HomeView extends GetView<HomeController> {
   @override
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Obx(
@@ -140,14 +141,12 @@ class HomeView extends GetView<HomeController> {
                 builder: (context, constraints) {
                   int columnCount = 1;
                   double width = constraints.maxWidth;
-
                   if (width >= 1024) {
                     columnCount = 3;
                   }
                   const spacing = 10.0;
                   final cardWidth =
                       (width - (columnCount - 1) * spacing) / columnCount;
-
                   return Wrap(
                     spacing: spacing,
                     runSpacing: spacing,
@@ -209,7 +208,19 @@ class HomeView extends GetView<HomeController> {
                     const SizedBox(height: 20),
                     bouton ??
                         MainButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: Get.context!,
+                              builder: (context) {
+                                return ConfirmationPopup(
+                                  onCancel: () => Navigator.of(context).pop(),
+                                  onConfirm: () {
+                                    Get.toNamed(Routes.CANALVOTE);
+                                  },
+                                );
+                              },
+                            );
+                          },
                           text: "Voter",
                           height: 35,
                           textcolor: Colors.white,
