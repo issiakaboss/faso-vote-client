@@ -58,6 +58,7 @@ class LocaleKeys {
   static const buttons_sign_in = 'buttons_sign_in';
   static const buttons_logout = 'buttons_logout';
   static const buttons_new_vote = 'buttons_new_vote';
+  static const buttons_new_candidat = 'buttons_new_candidat';
   static const field_required = 'field_required';
   static const email_required = 'email_required';
   static const invalid_email = 'invalid_email';
@@ -126,6 +127,7 @@ class Locales {
     'buttons_sign_in': 'Sign-in',
     'buttons_logout': 'Logout',
     'buttons_new_vote': 'New Vote',
+    'buttons_new_candidat': 'Add new Candidat',
   };
   static const fr_FR = {
     'app_name': 'Faso vote',
@@ -193,5 +195,6 @@ class Locales {
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',
     'buttons_logout': 'Déconnexion',
+    'buttons_new_candidat': 'Nouvel Candidat',
   };
 }

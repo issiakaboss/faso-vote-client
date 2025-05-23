@@ -8,6 +8,7 @@ class ApiClient {
 
   // Headers with or without authentication
   static Map<String, String> headers({String? token, bool auth = false}) {
+    token = '3RsOxSU2byZe8209aEW2j';
     Map<String, String> header = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

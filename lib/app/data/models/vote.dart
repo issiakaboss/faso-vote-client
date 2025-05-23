@@ -1,12 +1,14 @@
 
 class VoteModel {
-  final String title;
-  final String location;
-  final String date;
-  final String duration;
-  final String status;
+  final int id;
+  final String? title;
+  final String? location;
+  final String? date;
+  final String? duration;
+  final String? status;
 
   VoteModel({
+    required this.id,
     required this.title,
     required this.location,
     required this.date,
@@ -16,6 +18,7 @@ class VoteModel {
 
   factory VoteModel.fromJson(Map<String, dynamic> json) {
   return VoteModel(
+    id: json['id'],
     title: json['title'],
     location: json['location'],
     date: json['date'],

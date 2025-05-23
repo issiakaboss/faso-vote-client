@@ -52,6 +52,7 @@
       "login": "Login",
       "sign_in": "Sign-in",
       "logout": "Logout",
-      "new_vote": "New Vote"
+      "new_vote": "New Vote",
+      "new_candidat": "Add new Candidat"
     }
 }

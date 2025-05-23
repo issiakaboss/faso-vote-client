@@ -9,18 +9,23 @@ import '../models/vote.dart';
 import 'api_provider.dart';
 
 class VoteProvider with BaseProvider {
-  Future<List<VoteModel>> fetchVotes({ValueSetter<String>? onError}) async {
+  Future<List<VoteModel>?> fetchVotes({ValueSetter<String>? onError}) async {
     try {
+     
       final response = await ApiProvider.get(
         auth: true,
         apiURL: ApiRoutes.votes.path,
       );
 
-      final List<VoteModel> voteList = (response['data'] as List)
-          .map((item) => VoteModel.fromJson(item))
-          .toList();
+      print("response $response");
+      if (response != null) {
+        final List<VoteModel> voteList = (response['data'] as List)
+            .map((item) => VoteModel.fromJson(item))
+            .toList();
 
-      return voteList;
+        return voteList;
+      }
+      return null;
     } on ApiException catch (e) {
       if (onError != null) onError(e.message ?? '');
       return [];
@@ -58,11 +63,11 @@ class VoteProvider with BaseProvider {
         auth: true,
         apiURL: ApiRoutes.votes.path,
         fields: {
-          'event_name': voteData['event_name'],
+          'title': voteData['event_name'],
           'description': voteData['description'],
           'duration': voteData['duration'],
-          'start_datetime': voteData['start_datetime'],
-          'end_datetime': voteData['end_datetime'],
+          'start_date': voteData['start_datetime'],
+          'end_date': voteData['end_datetime'],
         },
         files: files,
       );

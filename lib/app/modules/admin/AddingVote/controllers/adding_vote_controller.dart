@@ -1,4 +1,5 @@
 import 'package:faso_vote_client/app/data/providers/vote_provider.dart';
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -33,6 +34,7 @@ class AddingVoteController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    initdata();
   }
 
   @override
@@ -45,6 +47,12 @@ class AddingVoteController extends GetxController {
     super.onClose();
   }
 
+  void initdata() {
+    eventNameController.text = "Mt-180 seconde";
+    descriptionController.text =
+        "I am writing regarding the cancellation of my TOEFL exam on March,";
+  }
+
   void setVoteLogo(PlatformFile? file) {
     voteLogo.value = file;
     existingLogoFiles.value = null;
@@ -52,6 +60,7 @@ class AddingVoteController extends GetxController {
   }
 
   void saveVoteData() async {
+    // Get.toNamed(AppPages.CANDIDATS);
     if (!voteDataFormkey.currentState!.validate()) return;
     final start = selectedStartDateTime.value;
     final end = selectedEndDateTime.value;

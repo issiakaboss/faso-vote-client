@@ -110,7 +110,7 @@ class DashboardView extends GetView<DashboardController> {
                               children: [
                                 CustomText(
                                   text: LocaleKeys.all_votes.tr,
-                                  style: AppTextStyles.heading5(),
+                                  style: AppTextStyles.heading4(),
                                 ),
                                 const SizedBox(height: 10),
                                 CustomButton.primaryButton(
@@ -130,7 +130,7 @@ class DashboardView extends GetView<DashboardController> {
                               children: [
                                 CustomText(
                                   text: LocaleKeys.all_votes.tr,
-                                  style: AppTextStyles.heading4(),
+                                  style: AppTextStyles.heading5(),
                                 ),
                                 CustomButton.primaryButton(
                                   elevation: 0.0,
@@ -171,12 +171,18 @@ class DashboardView extends GetView<DashboardController> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           final vote = filteredVotes[index];
-                          return VoteCard(
-                            title: vote.title,
-                            location: vote.location,
-                            date: vote.date,
-                            duration: vote.duration,
-                            status: vote.status,
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppPages.VOTE_DETAIL,
+                                  arguments: vote);
+                            },
+                            child: VoteCard(
+                              title: vote.title ?? '',
+                              location: vote.location ?? '',
+                              date: vote.date ?? '',
+                              duration: vote.duration ?? '',
+                              status: vote.status ?? '',
+                            ),
                           );
                         },
                       );
