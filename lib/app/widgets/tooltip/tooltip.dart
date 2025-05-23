@@ -1,10 +1,6 @@
-import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:super_tooltip/super_tooltip.dart';
-
-import '../../utils/functions/function.dart';
 import 'tooltipContent.dart';
 
 class CustomTooltip extends StatefulWidget {
@@ -95,7 +91,7 @@ class _CustomTooltipState extends State<CustomTooltip> {
         child: InkWell(
           key: _key,
           onLongPress: () {
-            Functions.copyText(text: widget.label.toString(),message: LocaleKeys.id_transaction_copied.tr);
+          
           },
           onTap: () async {
             WidgetsBinding.instance.addPostFrameCallback((_) {});
