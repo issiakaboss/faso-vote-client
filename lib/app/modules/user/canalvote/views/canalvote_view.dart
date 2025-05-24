@@ -1,4 +1,5 @@
 import 'package:faso_vote_client/app/modules/user/canalvote/views/phone_textfield.dart';
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
@@ -54,7 +55,9 @@ class CanalvoteView extends GetView<CanalvoteController> {
               width: Get.width / 3.5,
               height: 40,
               child: CustomButton.primaryButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.OTPPAGE);
+                },
                 buttonTitle: "Continuer",
               ),
             ),
