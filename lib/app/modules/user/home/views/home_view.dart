@@ -207,7 +207,8 @@ class HomeView extends GetView<HomeController> {
                     ),
                     const SizedBox(height: 20),
                     bouton ??
-                        MainButton(
+                        CustomButton.primaryButton(
+                          mainAxisSize: MainAxisSize.max,
                           onPressed: () {
                             showDialog(
                               context: Get.context!,
@@ -215,17 +216,14 @@ class HomeView extends GetView<HomeController> {
                                 return ConfirmationPopup(
                                   onCancel: () => Navigator.of(context).pop(),
                                   onConfirm: () {
-                                    Get.toNamed(Routes.CANALVOTE);
+                                    Get.toNamed(Routes.CANAL_VOTE);
                                   },
                                 );
                               },
                             );
                           },
-                          text: "Voter",
-                          height: 35,
-                          textcolor: Colors.white,
-                          color: AppColors.primary,
-                        )
+                          buttonTitle: "Voter",
+                        ),
                   ],
                 ),
               );

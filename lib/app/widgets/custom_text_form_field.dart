@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../themes/app_colors.dart';
 import '../themes/app_text_styles.dart';
 import 'country_code_box.dart';
 import 'custom_text.dart';

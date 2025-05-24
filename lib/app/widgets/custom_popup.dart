@@ -1,3 +1,4 @@
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_card.dart';
@@ -48,18 +49,23 @@ class ConfirmationPopup extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MainButton(
-                  onPressed: onCancel,
-                  color: const Color.fromARGB(255, 220, 236, 248),
-                  text: "Annuler",
-                  textcolor: AppColors.title,
-                ),
+                CustomButton.primaryButton(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 40),
+                    onPressed: () {},
+                    buttonTitle: "Annuler",
+                    textStyle: const TextStyle(
+                        color: AppColors.title, fontWeight: FontWeight.bold),
+                    borderRadius: 10,
+                    backgroundColor: const Color.fromARGB(255, 227, 235, 246)),
                 const SizedBox(width: 12),
-                MainButton(
-                  onPressed: onConfirm,
-                  color: AppColors.primary,
-                  text: "Continuer",
-                  textcolor: AppColors.secondary,
+                CustomButton.primaryButton(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+                  onPressed: () {
+                    Get.toNamed(Routes.CANAL_VOTE);
+                  },
+                  buttonTitle: "Continuer",
                 ),
               ],
             ),

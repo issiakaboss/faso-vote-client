@@ -1,4 +1,6 @@
 
+import 'package:faso_vote_client/app/modules/user/canalvote/bindings/canalvote_binding.dart';
+import 'package:faso_vote_client/app/modules/user/canalvote/views/canalvote_view.dart';
 import 'package:get/get.dart';
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
 import '../modules/SplashScreen/views/splash_screen_view.dart';
@@ -18,6 +20,7 @@ class AppPages {
   static const splashscreen = Routes.splashscreen;
   static const DASHBOARD = Routes.DASHBOARD;
   static const ADDING_VOTE = Routes.ADDING_VOTE;
+ 
 
   static final routes = [
     GetPage(
@@ -39,6 +42,12 @@ class AppPages {
       name: _Paths.ADDING_VOTE,
       page: () => const AddingVoteView(),
       binding: AddingVoteBinding(),
+    ),
+
+     GetPage(
+      name: _Paths.CANAL_VOTE,
+      page: () => const CanalvoteView(),
+      binding: CanalvoteBinding(),
     ),
   ];
 }

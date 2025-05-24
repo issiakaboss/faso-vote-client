@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
-
 import '../../../../data/models/vote.dart';
-import '../../../../data/providers/vote_provider.dart';
 
 class DashboardController extends GetxController {
   final votes = <VoteModel>[].obs;
