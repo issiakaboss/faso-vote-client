@@ -8,12 +8,8 @@ class ResultsView extends GetView<ResultsController> {
   const ResultsView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ResultsView'),
-        centerTitle: true,
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text(
           'ResultsView is working',
           style: TextStyle(fontSize: 20),

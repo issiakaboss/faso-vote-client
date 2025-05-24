@@ -49,6 +49,7 @@ class LocaleKeys {
   static const buttons_continuous = 'buttons_continuous';
   static const buttons_save = 'buttons_save';
   static const buttons_cancel = 'buttons_cancel';
+  static const buttons_close = 'buttons_close';
   static const buttons_update = 'buttons_update';
   static const buttons_confirm = 'buttons_confirm';
   static const buttons_verify_now = 'buttons_verify_now';
@@ -118,6 +119,7 @@ class Locales {
     'buttons_continuous': 'Continuous',
     'buttons_save': 'Save',
     'buttons_cancel': 'Cancel',
+    'buttons_close': 'Close',
     'buttons_update': 'Update',
     'buttons_confirm': 'Confirm',
     'buttons_verify_now': 'Verify now',
@@ -187,6 +189,7 @@ class Locales {
     'buttons_confirm': 'Confirmer',
     'buttons_save': 'Enrégistrer',
     'buttons_cancel': 'Annuler',
+    'buttons_close': 'Fermer',
     'buttons_update': 'Mettre à jour',
     'buttons_verify_now': 'Verifier maintenant',
     'buttons_verifying': 'En cours de vérification.....',

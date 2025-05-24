@@ -176,13 +176,7 @@ class DashboardView extends GetView<DashboardController> {
                               Get.toNamed(AppPages.VOTE_DETAIL,
                                   arguments: vote);
                             },
-                            child: VoteCard(
-                              title: vote.title ?? '',
-                              location: vote.location ?? '',
-                              date: vote.date ?? '',
-                              duration: vote.duration ?? '',
-                              status: vote.status ?? '',
-                            ),
+                            child: VoteCard(vote: vote),
                           );
                         },
                       );

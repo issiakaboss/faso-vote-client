@@ -11,7 +11,11 @@ enum ApiRoutes {
 
 // vote route
   votes('votes'),
-  updateVote('votes/{vote}');
+  voteCandidats('votes/{vote}'),
+  updateVote('votes/{vote}'),
+  candidats('candidates'),
+  deleteCandidat('candidates/{candidat}'),
+  editCandidat('candidates/{candidat}/edit');
 
   final String path;
   const ApiRoutes(this.path);

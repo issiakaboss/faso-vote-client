@@ -10,8 +10,6 @@ import '../../../widgets/custom_button.dart';
 
 class CandidatGridList extends StatelessWidget {
   final List<Candidat> candidats;
-  int crossAxisCount;
-  double? mainAxisExtent;
   ResponsiveHelper responsive;
   final void Function(Candidat candidat)? onEditTap;
   final void Function(Candidat candidat)? onDeleteTap;
@@ -19,8 +17,6 @@ class CandidatGridList extends StatelessWidget {
   CandidatGridList({
     super.key,
     required this.candidats,
-    this.crossAxisCount = 3,
-    this.mainAxisExtent = 260,
     required this.responsive,
     this.onEditTap,
     this.onDeleteTap,
@@ -50,7 +46,7 @@ class CandidatGridList extends StatelessWidget {
             ? 300
             : responsive.isTablet
                 ? 280
-                : 260,
+                : 290,
       ),
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
@@ -67,9 +63,10 @@ class CandidatGridList extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -94,7 +91,7 @@ class CandidatGridList extends StatelessWidget {
                             )
                           : const Icon(Icons.person, size: 80),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 14),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,33 +116,36 @@ class CandidatGridList extends StatelessWidget {
                     )
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      text: "Theme",
-                      overflow: TextOverflow.visible,
-                      style: AppTextStyles.heading6(),
-                    ),
-                    CustomText(
-                      text: candidat.theme ?? "Thème inconnu",
-                      overflow: TextOverflow.visible,
-                      style: AppTextStyles.bodyText2(),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: "Theme",
+                        overflow: TextOverflow.visible,
+                        style: AppTextStyles.heading6(),
+                      ),
+                      CustomText(
+                        text: candidat.theme ?? "Thème inconnu",
+                        overflow: TextOverflow.visible,
+                        style: AppTextStyles.bodyText2(),
+                      ),
+                    ],
+                  ),
                 ),
                 const Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomButton.outlineButton(
                       onPressed: () => onEditTap?.call(candidat),
                       buttonTitle: 'Éditer',
                       surfix: const Icon(Icons.edit, size: 13),
+                      borderColor: Colors.grey,
+                      textStyle: const TextStyle(color: Colors.black),
                       padding: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 6,
-                      ),
+                          horizontal: 6, vertical: 0),
                     ),
                     CustomButton.outlineButton(
                       onPressed: () => onDeleteTap?.call(candidat),
