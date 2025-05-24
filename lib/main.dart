@@ -33,7 +33,7 @@ void main() async {
     GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: Env.appName,
-        initialRoute: AppPages.DASHBOARD,
+        initialRoute: AppPages.INITIAL,
         initialBinding: InitialBinding(),
         getPages: AppPages.routes,
         locale: LocalizationService.to.getCurrentLocale(),

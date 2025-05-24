@@ -39,7 +39,6 @@
   "invalid_amount": "Montant invalide",
   "otp_required": "Le code OTP est requis",
   "otp_length": "Le code OTP doit comporter 6 chiffres",
-
   "select_payment_method": "Sélectionnez un mode de paiement",
   "amount": "Montant",
   

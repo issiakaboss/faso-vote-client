@@ -16,6 +16,6 @@ class AppColors {
       Color(0xFFFFF4EB); // couleur arriere plan d'icons de depot et retrait
   static const Color trans_otp_icon_back_color =
       Color(0xFFEDF3FC); // couleur arriere plan d'icons de transfert et otp
-  static const Color trans_detail_status =
-      Color(0xFFE5E9ED); // couleur arriere plan d'icons de transfert et otp
+  static const Color trans_detail_status = Color(0xFFE5E9ED);
+  static const Color bordercolor = Color(0xff333333);
 }
