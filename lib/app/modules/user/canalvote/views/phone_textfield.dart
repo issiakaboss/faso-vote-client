@@ -7,7 +7,7 @@ class PhoneTextfield {
     double width = double.infinity,
     double height = 65,
     String initialCountryCode = 'BF',
-    String hintText = 'Numéro de téléphone',
+    String hintText = '',
     Color borderColor = Colors.blue,
     Color fillColor = Colors.transparent,
     bool filled = true,
@@ -30,7 +30,7 @@ class PhoneTextfield {
         initialCountryCode: initialCountryCode,
         decoration: InputDecoration(
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
           counterText: '',
           hintText: hintText,
           hintStyle: hintStyle ??

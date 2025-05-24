@@ -1,4 +1,4 @@
-{ 
+{
   "app_name": "Faso vote",
   "login": "Login",
   "login_description": "Enter your credentials to log in.",
@@ -11,14 +11,26 @@
   "have_account": "I already have an account.",
   "register": "Register now",
   "fullname": "Full name",
-
-  "identique_password_error":"The passwords sould be identics",
-
+  "identique_password_error": "The passwords sould be identics",
   "otp_verification": "OTP verification",
   "enter_otp_sent_to": "Enter the OTP sent to",
   "did_not_receive_otp": "Did not receive the OTP?",
   "resend_otp": "Resend OTP",
-
+  "canal_vote_title": "Choose your voting channel",
+  "sous_title_canal_vote": "With a phone number",
+  "continue_title": "Continue",
+  "continue_google": "Continue with Google",
+  "ou": "OR",
+  "cancel": "Cancel",
+  "resultat": "Results",
+  "list_des_candidats": "List of candidates",
+  "resultat_des_votes": "Voting results",
+  "votes_total": "Total votes",
+  "ayant_vote": "Voted",
+  "non_vote": "Not voted",
+  "voter": "Vote",
+  "phonenumber": "Phone number",
+  "msg_popup_candidat": "Are you sure about your choice? Please note that once your vote is submitted, it cannot be undone.",
   "my_profile": "My profile",
   "detail_profile": "Detail profile",
   "user_name": "User name",
@@ -28,30 +40,27 @@
   "language": "Language",
   "theme": "Theme",
   "log_out": "Log out",
-
-  "all_votes":"All votes",
-  "pending_votes":"Pending votes",
-
-  "create_vote_title":"Create new vote",
-  "enter_event_name":"Enter the event name",
-  "add_logo":"Add a logo",
-  "description":"Description",
-  "enter_description":"Add description to help electors",
-
-    "buttons": {
-      "no": "No",
-      "yes": "Yes",
-      "continuous": "Continuous",
-      "save": "Save",
-      "cancel": "Cancel",
-      "update": "Update",
-      "confirm": "Confirm",
-      "verify_now": "Verify now",
-      "verifying": "Verifying.....",
-      "forgot": "Forgot?",
-      "login": "Login",
-      "sign_in": "Sign-in",
-      "logout": "Logout",
-      "new_vote": "New Vote"
-    }
+  "all_votes": "All votes",
+  "pending_votes": "Pending votes",
+  "create_vote_title": "Create new vote",
+  "enter_event_name": "Enter the event name",
+  "add_logo": "Add a logo",
+  "description": "Description",
+  "enter_description": "Add description to help electors",
+  "buttons": {
+    "no": "No",
+    "yes": "Yes",
+    "continuous": "Continuous",
+    "save": "Save",
+    "cancel": "Cancel",
+    "update": "Update",
+    "confirm": "Confirm",
+    "verify_now": "Verify now",
+    "verifying": "Verifying.....",
+    "forgot": "Forgot?",
+    "login": "Login",
+    "sign_in": "Sign-in",
+    "logout": "Logout",
+    "new_vote": "New Vote"
+  }
 }

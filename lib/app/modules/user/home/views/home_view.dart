@@ -1,4 +1,5 @@
 // home_view.dart
+import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../themes/app_colors.dart';
@@ -14,15 +15,14 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final maxContentWidth = 1100.0;
-
+    const maxContentWidth = 1100.0;
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: maxContentWidth),
+              constraints: const BoxConstraints(maxWidth: maxContentWidth),
               child: Obx(
                 () => Column(
                   children: [
@@ -50,8 +50,8 @@ class HomeView extends GetView<HomeController> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: _buildCandidatesSection(
                         title: controller.selectedTab.value == 0
-                            ? "Liste des candidats"
-                            : "Résultats des votes",
+                            ? LocaleKeys.list_des_candidats.tr
+                            : LocaleKeys.resultat_des_votes.tr,
                         bouton: controller.selectedTab.value == 1
                             ? MainCard(
                                 cardWidth: Get.width,
@@ -92,8 +92,8 @@ class HomeView extends GetView<HomeController> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _tabButton("Candidats", 0),
-                _tabButton("Résultats", 1),
+                _tabButton(LocaleKeys.candidats.tr, 0),
+                _tabButton(LocaleKeys.resultat.tr, 1),
               ],
             ),
           ),
@@ -157,11 +157,12 @@ class HomeView extends GetView<HomeController> {
               spacing: spacing,
               runSpacing: spacing,
               children: [
-                resultCard("8000", "Votes total", Colors.black,
+                resultCard("8000", LocaleKeys.votes_total.tr, Colors.black,
                     width: cardWidth),
-                resultCard("4000", "Ayant voté", Colors.green,
+                resultCard("4000", LocaleKeys.ayant_vote.tr, Colors.green,
                     width: cardWidth),
-                resultCard("4000", "Non voté", Colors.red, width: cardWidth),
+                resultCard("4000", LocaleKeys.non_vote.tr, Colors.red,
+                    width: cardWidth),
               ],
             );
           }),
@@ -196,7 +197,7 @@ class HomeView extends GetView<HomeController> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(40),
                         child: Image.network(
-                          candidate.image.toString(),
+                          candidate.photoUrl.toString(),
                           height: 80,
                           width: 80,
                           fit: BoxFit.cover,
@@ -207,7 +208,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       const SizedBox(height: 10),
                       CustomText(
-                        text: candidate.name ?? '',
+                        text: candidate.fullName,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -215,19 +216,21 @@ class HomeView extends GetView<HomeController> {
                       ),
                       const SizedBox(height: 12),
                       CustomText(
-                        text: candidate.title ?? '',
+                        text: candidate.etablissement,
                         style: const TextStyle(
                           fontSize: 14,
-                          color: Colors.grey,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 12),
-                      const CustomText(
-                        text: 'Université Nazi Boni',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.bold),
+                      CustomText(
+                        overflow: TextOverflow.visible,
+                        text: candidate.theme ?? "",
+                        color: Colors.grey,
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
                       const Spacer(),
                       bouton ??
@@ -250,7 +253,7 @@ class HomeView extends GetView<HomeController> {
                                 },
                               );
                             },
-                            buttonTitle: "Voter",
+                            buttonTitle: LocaleKeys.voter.tr,
                           ),
                     ],
                   ),

@@ -28,6 +28,21 @@ class LocaleKeys {
   static const enter_otp_sent_to = 'enter_otp_sent_to';
   static const did_not_receive_otp = 'did_not_receive_otp';
   static const resend_otp = 'resend_otp';
+  static const canal_vote_title = 'canal_vote_title';
+  static const sous_title_canal_vote = 'sous_title_canal_vote';
+  static const continue_title = 'continue_title';
+  static const continue_google = 'continue_google';
+  static const ou = 'ou';
+  static const cancel = 'cancel';
+  static const resultat = 'resultat';
+  static const list_des_candidats = 'list_des_candidats';
+  static const resultat_des_votes = 'resultat_des_votes';
+  static const votes_total = 'votes_total';
+  static const ayant_vote = 'ayant_vote';
+  static const non_vote = 'non_vote';
+  static const voter = 'voter';
+  static const phonenumber = 'phonenumber';
+  static const msg_popup_candidat = 'msg_popup_candidat';
   static const my_profile = 'my_profile';
   static const detail_profile = 'detail_profile';
   static const user_name = 'user_name';
@@ -75,6 +90,7 @@ class LocaleKeys {
   static const remove_message = 'remove_message';
   static const login_loading = 'login_loading';
   static const addPhone_loading = 'addPhone_loading';
+  static const candidats = 'candidats';
 }
 
 class Locales {
@@ -96,6 +112,22 @@ class Locales {
     'enter_otp_sent_to': 'Enter the OTP sent to',
     'did_not_receive_otp': 'Did not receive the OTP?',
     'resend_otp': 'Resend OTP',
+    'canal_vote_title': 'Choose your voting channel',
+    'sous_title_canal_vote': 'With a phone number',
+    'continue_title': 'Continue',
+    'continue_google': 'Continue with Google',
+    'ou': 'OR',
+    'cancel': 'Cancel',
+    'resultat': 'Results',
+    'list_des_candidats': 'List of candidates',
+    'resultat_des_votes': 'Voting results',
+    'votes_total': 'Total votes',
+    'ayant_vote': 'Voted',
+    'non_vote': 'Not voted',
+    'voter': 'Vote',
+    'phonenumber': 'Phone number',
+    'msg_popup_candidat':
+        'Are you sure about your choice? Please note that once your vote is submitted, it cannot be undone.',
     'my_profile': 'My profile',
     'detail_profile': 'Detail profile',
     'user_name': 'User name',
@@ -179,6 +211,23 @@ class Locales {
     'add_logo': 'Ajouter un logo',
     'description': 'Description',
     'enter_description': 'Ajouter une description pour aider les votants',
+    'canal_vote_title': 'Choisissez votre canal de vote',
+    'sous_title_canal_vote': 'Avec un numéro de téléphone',
+    'continue_title': 'Continuer',
+    'continue_google': 'Continuer avec Google',
+    'ou': 'OU',
+    'cancel': 'Annuler',
+    'candidats': 'Candidats',
+    'resultat': 'Résultats',
+    'list_des_candidats': 'Liste des candidats',
+    'resultat_des_votes': 'Résultats des votes',
+    'votes_total': 'Votes total',
+    'ayant_vote': 'Ayant voté',
+    'non_vote': 'Non voté',
+    'voter': 'Voter',
+    'phonenumber': 'Numéro de téléphone',
+    'msg_popup_candidat':
+        'Êtes-vous sûr(e) de votre choix ? Il est important de savoir que cette opération, une fois votée, ne pourra pas être annulée.',
     'buttons_no': 'Non',
     'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',

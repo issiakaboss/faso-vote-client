@@ -4,21 +4,30 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   var selectedTab = 0.obs;
 
-  final candidates = <Candidate>[
-    Candidate(
-      name: 'Dr Madou KAKOU',
-      title: 'Docteur en chimie',
-      image: 'https://randomuser.me/api/portraits/men/1.jpg',
+  final candidates = <Candidat>[
+    Candidat(
+      id: 1,
+      fullName: 'Dr Madou KAKOU',
+      etablissement: 'Université Félix Houphouët-Boigny d’Abidjan',
+      theme:
+          'Étude de la catalyse hétérogène dans la synthèse verte de composés organiques',
+      photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
     ),
-    Candidate(
-      name: 'Mme Aïcha KONÉ',
-      title: 'Professeure en biologie',
-      image: 'https://randomuser.me/api/portraits/women/2.jpg',
+    Candidat(
+      id: 2,
+      fullName: 'Mme Aïcha KONÉ',
+      etablissement: 'Université Nangui Abrogoua',
+      theme:
+          'Impact des biofertilisants sur la croissance du maïs en zone tropicale',
+      photoUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
     ),
-    Candidate(
-      name: 'Dr Issa TRAORÉ',
-      title: 'Chercheur en physique',
-      image: 'https://randomuser.me/api/portraits/men/3.jpg',
+    Candidat(
+      id: 3,
+      fullName: 'Dr Issa TRAORÉ',
+      etablissement: 'INP-HB (Institut National Polytechnique)',
+      theme:
+          'Modélisation numérique des propriétés thermiques des matériaux composites',
+      photoUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
     ),
   ].obs;
 }

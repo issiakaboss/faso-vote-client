@@ -1,33 +1,26 @@
-class Candidate {
-  final String? id;
-  final String? name;
-  final String? title;
-  final String? image;
+class Candidat {
+  final int id;
+  final String fullName;
+  final String etablissement;
+  final String? theme;
+  final String? photoUrl;
 
-  Candidate({
-    this.id,
-    this.name,
-    this.title,
-    this.image,
+  Candidat({
+    required this.id,
+    required this.fullName,
+    required this.etablissement,
+    this.theme,
+    this.photoUrl,
   });
 
-  // Convertir un JSON en Candidate
-  factory Candidate.fromJson(Map<String, dynamic> json) {
-    return Candidate(
-      id: json['id'].toString(),
-      name: json['name'] ?? '',
-      title: json['title'] ?? '',
-      image: json['image'] ?? '',
+  // Optionnel: méthode fromJson si vous utilisez une API
+  factory Candidat.fromJson(Map<String, dynamic> json) {
+    return Candidat(
+      id: json['id'],
+      fullName: json['fullName'],
+      etablissement: json['etablissement'],
+      theme: json['theme'],
+      photoUrl: json['photoUrl'],
     );
-  }
-
-  // Convertir un Candidate en JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'title': title,
-      'image': image,
-    };
   }
 }
