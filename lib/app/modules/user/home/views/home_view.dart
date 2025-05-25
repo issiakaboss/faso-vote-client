@@ -31,15 +31,19 @@ class HomeView extends GetView<HomeController> {
                       backgroundImage: AssetImage('assets/images/logo.png'),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Vote pour le ministre de commerce',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    const CustomText(
+                      text: "Vote pour le ministre de commerce",
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: AppColors.title,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                    const CustomText(
+                      text:
+                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                       textAlign: TextAlign.center,
                     ),
@@ -180,7 +184,6 @@ class HomeView extends GetView<HomeController> {
             double spacing = 16;
             double cardWidth =
                 (maxWidth - ((columnCount - 1) * spacing)) / columnCount;
-
             return Wrap(
               spacing: spacing,
               runSpacing: spacing,
@@ -188,7 +191,7 @@ class HomeView extends GetView<HomeController> {
                 return MainCard(
                   padding: const EdgeInsets.all(12),
                   cardWidth: cardWidth,
-                  cardHeight: 280, // ✅ hauteur fixe
+                  cardHeight: 280,
                   cardColor: Colors.white,
                   borderWidth: 0.5,
                   borderColor: Colors.grey.shade200,
