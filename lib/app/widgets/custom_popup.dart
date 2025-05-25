@@ -1,7 +1,7 @@
-import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_card.dart';
+import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,13 +16,15 @@ class ConfirmationPopup extends StatelessWidget {
   });
 
   @override
+  @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Dialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: MainCard(
-        cardWidth: Get.width / 2,
-        cardHeight: Get.height / 2,
+        cardWidth: Get.width / (isMobile ? 1.1 : 2),
+        cardHeight: Get.height / (isMobile ? 2 : 2),
         borderColor: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,38 +39,63 @@ class ConfirmationPopup extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.only(left: 12.0, right: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
-                "Êtes-vous sûr(e) de votre choix ? Il est important de savoir que cette opération, une fois votée, ne pourra pas être annulée.",
+                LocaleKeys.msg_popup_candidat.tr,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: const TextStyle(fontSize: 16, color: Colors.black),
               ),
             ),
             const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomButton.primaryButton(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 40),
-                    onPressed: () {},
-                    buttonTitle: "Annuler",
-                    textStyle: const TextStyle(
-                        color: AppColors.title, fontWeight: FontWeight.bold),
-                    borderRadius: 10,
-                    backgroundColor: const Color.fromARGB(255, 227, 235, 246)),
-                const SizedBox(width: 12),
-                CustomButton.primaryButton(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-                  onPressed: () {
-                    Get.toNamed(Routes.CANAL_VOTE);
-                  },
-                  buttonTitle: "Continuer",
-                ),
-              ],
-            ),
+            isMobile
+                ? Column(
+                    children: [
+                      CustomButton.primaryButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        onPressed: onConfirm,
+                        buttonTitle: LocaleKeys.continue_title.tr,
+                      ),
+                      const SizedBox(height: 12),
+                      CustomButton.primaryButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        onPressed: onCancel,
+                        buttonTitle: LocaleKeys.cancel.tr,
+                        textStyle: const TextStyle(
+                            color: AppColors.title,
+                            fontWeight: FontWeight.bold),
+                        borderRadius: 10,
+                        backgroundColor:
+                            const Color.fromARGB(255, 227, 235, 246),
+                      ),
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomButton.primaryButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        onPressed: onCancel,
+                        buttonTitle: "Annuler",
+                        textStyle: const TextStyle(
+                            color: AppColors.title,
+                            fontWeight: FontWeight.bold),
+                        borderRadius: 10,
+                        backgroundColor:
+                            const Color.fromARGB(255, 227, 235, 246),
+                      ),
+                      const SizedBox(width: 12),
+                      CustomButton.primaryButton(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 40),
+                        onPressed: onConfirm,
+                        buttonTitle: "Continuer",
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
