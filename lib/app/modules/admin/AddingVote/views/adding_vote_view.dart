@@ -20,13 +20,11 @@ class AddingVoteView extends GetView<AddingVoteController> {
   VoteModel? editVote = Get.arguments;
   AddingVoteView({super.key}) {
     if (editVote != null) {
-      print("il existe bien");
       controller.initForEdit(editVote!);
     }
   }
   @override
   Widget build(BuildContext context) {
-    print("vote data ${editVote?.id}");
     final responsive = ResponsiveHelper(context);
     return Scaffold(
       body: SizedBox(
