@@ -8,15 +8,19 @@ import 'package:get/get.dart';
 
 class VoteCard extends StatelessWidget {
   final VoteModel vote;
-
+  final void Function(VoteModel vote)? onEditTap;
+  final void Function(VoteModel vote)? onDeleteTap;
+  final void Function(VoteModel vote)? onBlockTap;
   const VoteCard({
     required this.vote,
+    this.onDeleteTap,
+    this.onEditTap,
+    this.onBlockTap,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("logo ${vote.logo}");
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: Get.theme.cardColor,
@@ -121,7 +125,7 @@ class VoteCard extends StatelessWidget {
                 spacing: 10,
                 runSpacing: 10,
                 children: [
-                  if (vote.status == "Bloqué")
+                  if (vote.status == "Inactive")
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 140),
                       child: CustomButton.outlineButton(
@@ -137,11 +141,11 @@ class VoteCard extends StatelessWidget {
                             color: Colors.black,
                           )),
                     ),
-                  if (vote.status == "En cours")
+                  if (vote.status == "Active")
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 140),
                       child: CustomButton.outlineButton(
-                          onPressed: () {},
+                          onPressed: () => onBlockTap?.call(vote),
                           buttonTitle: "Bloquer",
                           fontSize: 12,
                           borderRadius: 50.0,
@@ -156,7 +160,7 @@ class VoteCard extends StatelessWidget {
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 140),
                     child: CustomButton.outlineButton(
-                        onPressed: () {},
+                        onPressed: () => onEditTap?.call(vote),
                         buttonTitle: "Éditer",
                         fontSize: 12,
                         borderRadius: 50.0,
@@ -171,7 +175,7 @@ class VoteCard extends StatelessWidget {
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 140),
                     child: CustomButton.outlineButton(
-                        onPressed: () {},
+                        onPressed: () => onDeleteTap?.call(vote),
                         buttonTitle: "Supprimer",
                         fontSize: 12,
                         borderRadius: 50.0,

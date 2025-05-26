@@ -46,7 +46,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADDING_VOTE,
-      page: () => const AddingVoteView(),
+      page: () =>  AddingVoteView(),
       binding: AddingVoteBinding(),
     ),
     GetPage(

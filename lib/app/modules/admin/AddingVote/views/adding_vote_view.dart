@@ -1,3 +1,4 @@
+import 'package:faso_vote_client/app/data/models/vote.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
@@ -16,9 +17,16 @@ import '../../../../widgets/image_picker_box.dart';
 import '../controllers/adding_vote_controller.dart';
 
 class AddingVoteView extends GetView<AddingVoteController> {
-  const AddingVoteView({super.key});
+  VoteModel? editVote = Get.arguments;
+  AddingVoteView({super.key}) {
+    if (editVote != null) {
+      print("il existe bien");
+      controller.initForEdit(editVote!);
+    }
+  }
   @override
   Widget build(BuildContext context) {
+    print("vote data ${editVote?.id}");
     final responsive = ResponsiveHelper(context);
     return Scaffold(
       body: SizedBox(
@@ -119,9 +127,9 @@ class AddingVoteView extends GetView<AddingVoteController> {
                                           ? [controller.voteLogo.value!]
                                           : [],
                                   existingFiles: [
-                                    if (controller.existingLogoFiles.value !=
+                                    if (controller.existingVoteLogo.value !=
                                         null)
-                                      controller.existingLogoFiles.value!
+                                      controller.existingVoteLogo.value!
                                   ],
                                   onFilesSelected: (files) =>
                                       controller.setVoteLogo(files.isNotEmpty

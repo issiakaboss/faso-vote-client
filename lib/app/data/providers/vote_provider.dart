@@ -1,3 +1,4 @@
+import 'package:faso_vote_client/app/data/models/edit_vote.dart';
 import 'package:faso_vote_client/app/data/providers/base_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +12,10 @@ import 'api_provider.dart';
 class VoteProvider with BaseProvider {
   Future<List<VoteModel>?> fetchVotes({ValueSetter<String>? onError}) async {
     try {
-     
       final response = await ApiProvider.get(
         auth: true,
         apiURL: ApiRoutes.votes.path,
       );
-
-      print("response $response");
       if (response != null) {
         final List<VoteModel> voteList = (response['data'] as List)
             .map((item) => VoteModel.fromJson(item))
@@ -32,6 +30,29 @@ class VoteProvider with BaseProvider {
     } catch (e) {
       if (onError != null) onError('Erreur inattendue: ${e.toString()}');
       return [];
+    }
+  }
+
+  Future<EditVote?> fetchEditVoteData(
+      {required int voteId, ValueSetter<String>? onError}) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.editVote.format({"vote": voteId.toString()}),
+      );
+      if (response != null) {
+        print("Vote data $response");
+        final EditVote editVote = EditVote.fromJson(response['data']);
+
+        return editVote;
+      }
+      return null;
+    } on ApiException catch (e) {
+      if (onError != null) onError(e.message ?? '');
+      return null;
+    } catch (e) {
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return null;
     }
   }
 
@@ -65,7 +86,6 @@ class VoteProvider with BaseProvider {
         fields: {
           'title': voteData['event_name'],
           'description': voteData['description'],
-          'duration': voteData['duration'],
           'start_date': voteData['start_datetime'],
           'end_date': voteData['end_datetime'],
         },
@@ -114,11 +134,10 @@ class VoteProvider with BaseProvider {
         auth: true,
         apiURL: ApiRoutes.updateVote.format({'vote': voteId}),
         fields: {
-          'event_name': voteData['event_name'],
+          'title': voteData['event_name'],
           'description': voteData['description'],
-          'duration': voteData['duration'],
-          'start_datetime': voteData['start_datetime'],
-          'end_datetime': voteData['end_datetime'],
+          'start_date': voteData['start_datetime'],
+          'end_date': voteData['end_datetime'],
           '_method': 'PUT',
         },
         files: files,
@@ -134,6 +153,30 @@ class VoteProvider with BaseProvider {
       hideLoading();
       onError?.call('Erreur inattendue: ${e.toString()}');
       return null;
+    }
+  }
+
+   Future<bool> deleteVote({
+    required String voteId,
+    ValueSetter<String>? onError,
+  }) async {
+    try {
+      showLoading();
+      final response = await ApiProvider.delete(
+        auth: true,
+        apiURL: ApiRoutes.deleteVote.format({'vote': voteId}),
+      ).catchError(handleError);
+      hideLoading();
+      return response != null;
+    } on ApiException catch (e) {
+      hideLoading();
+      if (onError != null) onError(e.message ?? '');
+      return false;
+    } catch (e) {
+      hideLoading();
+      debugPrint('Erreur inattendue: ${e.toString()}');
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return false;
     }
   }
 }

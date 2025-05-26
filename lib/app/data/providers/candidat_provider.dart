@@ -110,6 +110,7 @@ class CandidatProvider with BaseProvider {
       return null;
     }
   }
+
   Future<dynamic> editCandidate({
     required String candidatId,
     required Map<String, dynamic> candidat,
@@ -138,12 +139,13 @@ class CandidatProvider with BaseProvider {
       }
       final response = await ApiProvider.multipartUpdate(
         auth: true,
-        apiURL: ApiRoutes.candidats.format({'candidat':candidatId}),
+        apiURL: ApiRoutes.updateCandidat.format({'candidat': candidatId}),
         fields: {
           'vote_id': candidat['vote_id'],
           'full_name': candidat['full_name'] ?? '',
           'university': candidat['university'] ?? '',
-          'theme': candidat['theme'] ?? ''
+          'theme': candidat['theme'] ?? '',
+          '_method': 'PUT',
         },
         files: files,
       );
@@ -160,7 +162,7 @@ class CandidatProvider with BaseProvider {
     }
   }
 
-    Future<bool> deleteCandidat({
+  Future<bool> deleteCandidat({
     required String candidatId,
     ValueSetter<String>? onError,
   }) async {
@@ -183,4 +185,5 @@ class CandidatProvider with BaseProvider {
       return false;
     }
   }
+ 
 }
