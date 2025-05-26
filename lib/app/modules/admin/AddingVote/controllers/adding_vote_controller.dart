@@ -1,4 +1,7 @@
+import 'package:faso_vote_client/app/data/models/edit_vote.dart';
+import 'package:faso_vote_client/app/data/models/vote.dart';
 import 'package:faso_vote_client/app/data/providers/vote_provider.dart';
+import 'package:faso_vote_client/app/modules/admin/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
@@ -6,10 +9,11 @@ import '../../../../utils/helpers/dialog_helper.dart';
 import '../../../../utils/helpers/form_helper.dart';
 
 class AddingVoteController extends GetxController {
+  DashboardController dashboardController = DashboardController();
   VoteProvider _voteProvider = VoteProvider();
   GlobalKey<FormState> voteDataFormkey = GlobalKey<FormState>();
-  final Rx<PlatformFile?> existingLogoFiles = Rx<PlatformFile?>(null);
   Rx<PlatformFile?> voteLogo = Rx<PlatformFile?>(null);
+  Rx<PlatformFile?> existingVoteLogo = Rx<PlatformFile?>(null);
   final RxBool isEditMode = false.obs;
   final RxnInt voteId = RxnInt(null);
 
@@ -33,6 +37,7 @@ class AddingVoteController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // initdata();
   }
 
   @override
@@ -45,31 +50,55 @@ class AddingVoteController extends GetxController {
     super.onClose();
   }
 
+  void initdata() {
+    eventNameController.text = "Mt-180 seconde";
+    descriptionController.text =
+        "I am writing regarding the cancellation of my TOEFL exam on March,";
+  }
+
+  void initForEdit(VoteModel vote) async {
+    isEditMode.value = true;
+    voteId.value = vote.id;
+    EditVote? editingVote = await loadVoteEditData(voteId: vote.id);
+    eventNameController.text = editingVote?.title ?? '';
+    descriptionController.text = editingVote?.description ?? '';
+    selectedStartDateTime.value = editingVote?.startDate;
+    selectedEndDateTime.value = editingVote?.endDate;
+    existingVoteLogo.value = _convertUrlToFile(editingVote?.logo ?? '');
+  }
+
+  Future<EditVote?> loadVoteEditData({required int voteId}) async {
+    final editingVote = await _voteProvider.fetchEditVoteData(
+        voteId: voteId, onError: (error) => Get.snackbar('Erreur', error));
+    if (editingVote != null) {
+      return editingVote;
+    }
+    return null;
+  }
+
+  PlatformFile _convertUrlToFile(String url) {
+    return PlatformFile(
+      name: url.split('/').last,
+      path: url,
+      size: 0,
+      bytes: null,
+    );
+  }
+
   void setVoteLogo(PlatformFile? file) {
     voteLogo.value = file;
-    existingLogoFiles.value = null;
+    existingVoteLogo.value = null;
     update();
   }
 
   void saveVoteData() async {
+    // Get.toNamed(AppPages.CANDIDATS);
     if (!voteDataFormkey.currentState!.validate()) return;
     final start = selectedStartDateTime.value;
     final end = selectedEndDateTime.value;
-
-    String formattedDuration = '';
-    if (start != null && end != null) {
-      final duration = end.difference(start);
-      if (duration.inDays >= 1) {
-        formattedDuration =
-            '${duration.inDays} jour${duration.inDays > 1 ? 's' : ''}';
-      } else {
-        formattedDuration = '${duration.inHours}h';
-      }
-    }
     final voteData = {
       'event_name': eventNameController.text,
       'description': descriptionController.text,
-      'duration': formattedDuration,
       'start_datetime': start?.toIso8601String(),
       'end_datetime': end?.toIso8601String(),
     };
@@ -92,13 +121,13 @@ class AddingVoteController extends GetxController {
     }
 
     if (response != null) {
+      _clearVoteFormData();
+      Get.back(result: true); 
       DialogHelper.showSuccessSnackbar(
         message: isEditMode.value
             ? "Événement de vote mis à jour avec succès!"
             : "Événement de vote créé avec succès!",
       );
-      _clearVoteFormData();
-      Get.back();
     }
   }
 

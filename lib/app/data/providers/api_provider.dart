@@ -47,25 +47,24 @@ abstract class ApiProvider {
   }
 
   static Future<dynamic> put({
-  required bool auth,
-  required Map<String, dynamic> data,
-  String? baseURL,
-  required String apiURL,
-}) async {
-  try {
-    var response = await http
-        .put(Uri.parse((baseURL ?? ApiClient.baseUrl) + apiURL),
-            body: jsonEncode(data),
-            headers: ApiClient.headers(auth: auth))
-        .timeout(const Duration(seconds: timeOutDuration));
+    required bool auth,
+    required Map<String, dynamic> data,
+    String? baseURL,
+    required String apiURL,
+  }) async {
+    try {
+      var response = await http
+          .put(Uri.parse((baseURL ?? ApiClient.baseUrl) + apiURL),
+              body: jsonEncode(data), headers: ApiClient.headers(auth: auth))
+          .timeout(const Duration(seconds: timeOutDuration));
 
-    return ApiClient.processResponse(response);
-  } on SocketException {
-    throw FetchDataException('No Internet connection', '');
-  } on TimeoutException {
-    throw ApiNotRespondingException('API not responded in time', '');
+      return ApiClient.processResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection', '');
+    } on TimeoutException {
+      throw ApiNotRespondingException('API not responded in time', '');
+    }
   }
-}
 
   // Nouvelle méthode pour les requêtes multipart (upload de fichiers)
   static Future<dynamic> multipartPost({
@@ -75,6 +74,7 @@ abstract class ApiProvider {
     required List<http.MultipartFile> files,
   }) async {
     try {
+  
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(ApiClient.baseUrl + apiURL),

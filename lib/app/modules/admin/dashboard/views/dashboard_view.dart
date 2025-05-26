@@ -1,3 +1,4 @@
+import 'package:faso_vote_client/app/data/models/vote.dart';
 import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
@@ -110,7 +111,7 @@ class DashboardView extends GetView<DashboardController> {
                               children: [
                                 CustomText(
                                   text: LocaleKeys.all_votes.tr,
-                                  style: AppTextStyles.heading5(),
+                                  style: AppTextStyles.heading4(),
                                 ),
                                 const SizedBox(height: 10),
                                 CustomButton.primaryButton(
@@ -130,12 +131,16 @@ class DashboardView extends GetView<DashboardController> {
                               children: [
                                 CustomText(
                                   text: LocaleKeys.all_votes.tr,
-                                  style: AppTextStyles.heading4(),
+                                  style: AppTextStyles.heading5(),
                                 ),
                                 CustomButton.primaryButton(
                                   elevation: 0.0,
-                                  onPressed: () {
-                                    Get.toNamed(AppPages.ADDING_VOTE);
+                                  onPressed: () async {
+                                    final result =
+                                        await Get.toNamed(AppPages.ADDING_VOTE);
+                                    if (result == true) {
+                                      controller.loadVotes();
+                                    }
                                   },
                                   prefix: const Icon(Icons.add,
                                       color: Colors.white),
@@ -149,12 +154,7 @@ class DashboardView extends GetView<DashboardController> {
                   const SizedBox(height: 20),
                   Expanded(
                     child: Obx(() {
-                      final filteredVotes =
-                          controller.selectedToggleIndex.value == 0
-                              ? controller.votes
-                              : controller.votes
-                                  .where((vote) => vote.status == "En cours")
-                                  .toList();
+                      final votes = controller.votes;
                       return GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: responsive.isMobile
@@ -167,16 +167,30 @@ class DashboardView extends GetView<DashboardController> {
                                 : responsive.isTablet
                                     ? 0.9
                                     : 0.7),
-                        itemCount: filteredVotes.length,
+                        itemCount: votes.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          final vote = filteredVotes[index];
-                          return VoteCard(
-                            title: vote.title,
-                            location: vote.location,
-                            date: vote.date,
-                            duration: vote.duration,
-                            status: vote.status,
+                          final vote = votes[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Get.toNamed(AppPages.VOTE_DETAIL,
+                                  arguments: vote);
+                            },
+                            child: VoteCard(
+                              vote: vote,
+                              onEditTap: (vote) async {
+                                final result = await Get.toNamed(
+                                    AppPages.ADDING_VOTE,
+                                    arguments: vote);
+                                if (result == true) {
+                                  controller.loadVotes();
+                                }
+                              },
+                              onBlockTap: (vote) {},
+                              onDeleteTap: (vote) {
+                                controller.deleteVote(voteId: vote.id);
+                              },
+                            ),
                           );
                         },
                       );

@@ -101,11 +101,13 @@ class CustomButton {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
                   buttonTitle,
+                  
                   style: textStyle ??
                       AppTextStyles.buttonTextStyle().copyWith(
                         fontSize: fontSize,
                         color: forgroundColor ?? Get.theme.primaryColor,
                         fontWeight: textFontWeight,
+                        
                       ),
                   textAlign:
                       prefix != null && !isCenterText ? null : TextAlign.center,

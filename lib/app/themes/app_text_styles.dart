@@ -68,6 +68,16 @@ class AppTextStyles {
     );
   }
 
+   static TextStyle heading6({BuildContext? context}) {
+    return GoogleFonts.figtree(
+      fontSize: 19,
+      fontWeight: FontWeight.bold,
+      color: context != null
+          ? Theme.of(context).textTheme.bodyMedium?.color
+          : Get.theme.textTheme.bodyMedium?.color,
+    );
+  }
+
   static TextStyle appBarTitle({BuildContext? context}) {
     return GoogleFonts.figtree(
       fontSize: 20,

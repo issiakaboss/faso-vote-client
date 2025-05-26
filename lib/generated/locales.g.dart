@@ -64,6 +64,7 @@ class LocaleKeys {
   static const buttons_continuous = 'buttons_continuous';
   static const buttons_save = 'buttons_save';
   static const buttons_cancel = 'buttons_cancel';
+  static const buttons_close = 'buttons_close';
   static const buttons_update = 'buttons_update';
   static const buttons_confirm = 'buttons_confirm';
   static const buttons_verify_now = 'buttons_verify_now';
@@ -73,6 +74,7 @@ class LocaleKeys {
   static const buttons_sign_in = 'buttons_sign_in';
   static const buttons_logout = 'buttons_logout';
   static const buttons_new_vote = 'buttons_new_vote';
+  static const buttons_new_candidat = 'buttons_new_candidat';
   static const field_required = 'field_required';
   static const email_required = 'email_required';
   static const invalid_email = 'invalid_email';
@@ -149,6 +151,7 @@ class Locales {
     'buttons_continuous': 'Continuous',
     'buttons_save': 'Save',
     'buttons_cancel': 'Cancel',
+    'buttons_close': 'Close',
     'buttons_update': 'Update',
     'buttons_confirm': 'Confirm',
     'buttons_verify_now': 'Verify now',
@@ -158,6 +161,7 @@ class Locales {
     'buttons_sign_in': 'Sign-in',
     'buttons_logout': 'Logout',
     'buttons_new_vote': 'New Vote',
+    'buttons_new_candidat': 'Add new Candidat',
   };
   static const fr_FR = {
     'app_name': 'Faso vote',
@@ -234,6 +238,7 @@ class Locales {
     'buttons_confirm': 'Confirmer',
     'buttons_save': 'Enrégistrer',
     'buttons_cancel': 'Annuler',
+    'buttons_close': 'Fermer',
     'buttons_update': 'Mettre à jour',
     'buttons_verify_now': 'Verifier maintenant',
     'buttons_verifying': 'En cours de vérification.....',
@@ -242,5 +247,6 @@ class Locales {
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',
     'buttons_logout': 'Déconnexion',
+    'buttons_new_candidat': 'Nouvel Candidat',
   };
 }

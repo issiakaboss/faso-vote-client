@@ -9,6 +9,9 @@ abstract class Routes {
   static const ADDING_VOTE = _Paths.ADDING_VOTE;
   static const CANAL_VOTE = _Paths.CANAL_VOTE;
   static const OTPPAGE = _Paths.OTPPAGE;
+  static const CANDIDATS = _Paths.CANDIDATS;
+  static const VOTE_DETAIL =  _Paths.VOTE_DETAIL;
+  static const RESULTS =  _Paths.RESULTS;
 }
 
 abstract class _Paths {
@@ -19,4 +22,7 @@ abstract class _Paths {
   static const ADDING_VOTE = '/adding-vote';
   static const CANAL_VOTE = '/canal-vote';
   static const OTPPAGE = '/otppage';
+  static const CANDIDATS = '/candidats';
+  static const VOTE_DETAIL = '/vote-detail';
+  static const RESULTS = '/results';
 }
