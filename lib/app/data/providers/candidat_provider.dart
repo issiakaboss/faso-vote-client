@@ -33,6 +33,7 @@ class CandidatProvider with BaseProvider {
       return [];
     }
   }
+ 
 
   Future<Candidat?> fetchEditCandidatData(
       {required int candidatId, ValueSetter<String>? onError}) async {

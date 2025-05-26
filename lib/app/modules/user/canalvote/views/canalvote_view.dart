@@ -9,10 +9,11 @@ import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import '../controllers/canalvote_controller.dart';
 
 class CanalvoteView extends GetView<CanalvoteController> {
-  const CanalvoteView({super.key});
-
+  CanalvoteView({super.key});
+  Map<String, dynamic>? voteCandidatData = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print("Vote data $voteCandidatData");
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -97,6 +98,19 @@ class CanalvoteView extends GetView<CanalvoteController> {
                           color: AppColors.title,
                           fontWeight: FontWeight.w500,
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: 35),
+                    CustomButton.secondaryButton(
+                      mainAxisSize: MainAxisSize.min,
+                      onPressed: () {
+                        Get.back(result: false);
+                      },
+                      buttonTitle: LocaleKeys.buttons_quit.tr,
+                      prefix: const Icon(Icons.close),
+                      textStyle: const TextStyle(
+                        color: AppColors.title,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

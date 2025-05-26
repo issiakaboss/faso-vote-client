@@ -55,7 +55,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CANAL_VOTE,
-      page: () => const CanalvoteView(),
+      page: () =>  CanalvoteView(),
       binding: CanalvoteBinding(),
     ),
     GetPage(
