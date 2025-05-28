@@ -1,4 +1,3 @@
-import 'package:faso_vote_client/app/data/models/vote.dart';
 import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';

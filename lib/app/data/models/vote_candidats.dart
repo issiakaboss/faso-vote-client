@@ -19,10 +19,5 @@ class VoteCandidats {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'vote': vote, 
-      'candidats': candidats.map((e) => e.toJson()).toList(),
-    };
-  }
+ 
 }

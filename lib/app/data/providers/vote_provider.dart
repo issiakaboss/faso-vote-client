@@ -35,11 +35,11 @@ class VoteProvider with BaseProvider {
   }
 
   Future<VoteCandidats?> fetchVoteCandidats(
-      {required int voteId, ValueSetter<String>? onError}) async {
+      {required String voteId, ValueSetter<String>? onError}) async {
     try {
       final response = await ApiProvider.get(
         auth: true,
-        apiURL: ApiRoutes.voteCandidats.format({"vote": voteId.toString()}),
+        apiURL: ApiRoutes.voteCandidats.format({"vote": voteId}),
       );
       if (response != null) {
         final VoteCandidats voteCandidats =

@@ -8,8 +8,6 @@ import '../modules/admin/Candidats/bindings/candidats_binding.dart';
 import '../modules/admin/Candidats/views/candidats_view.dart';
 import '../modules/admin/dashboard/bindings/dashboard_binding.dart';
 import '../modules/admin/dashboard/views/dashboard_view.dart';
-import '../modules/user/otppage/bindings/otppage_binding.dart';
-import '../modules/user/otppage/views/otppage_view.dart';
 import '../modules/user/canalvote/bindings/canalvote_binding.dart';
 import '../modules/user/canalvote/views/canalvote_view.dart';
 import '../modules/user/home/bindings/home_binding.dart';
@@ -24,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.home;
+  static const VOTE = Routes.vote;
   static const splashscreen = Routes.splashscreen;
   static const DASHBOARD = Routes.DASHBOARD;
   static const ADDING_VOTE = Routes.ADDING_VOTE;
@@ -34,7 +32,7 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.home,
+      name: '/vote/:id',
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
@@ -58,12 +56,7 @@ class AppPages {
       page: () =>  CanalvoteView(),
       binding: CanalvoteBinding(),
     ),
-    GetPage(
-      name: _Paths.OTPPAGE,
-      page: () => const OtppageView(),
-      binding: OtppageBinding(),
-
-    ),
+  
     GetPage(
             name: _Paths.CANDIDATS,
       page: () => CandidatsView(),

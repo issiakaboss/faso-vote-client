@@ -30,14 +30,24 @@ class Candidat {
     );
   }
 
-  // Optionnel: méthode toJson si vous utilisez une API
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'full_name': fullName,
-      'university': etablissement,
-      'theme': theme,
-      'photo': photoUrl,
-    };
-  }
+  Candidat copyWith({
+  int? id,
+  int? voteId,
+  String? fullName,
+  String? etablissement,
+  String? theme,
+  String? photoUrl,
+  int? voix,
+}) {
+  return Candidat(
+    id: id ?? this.id,
+    voteId: voteId ?? this.voteId,
+    fullName: fullName ?? this.fullName,
+    etablissement: etablissement ?? this.etablissement,
+    theme: theme ?? this.theme,
+    photoUrl: photoUrl ?? this.photoUrl,
+    voix: voix ?? this.voix,
+  );
+}
+
 }

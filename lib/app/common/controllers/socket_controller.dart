@@ -7,29 +7,42 @@ import 'package:faso_vote_client/app/utils/helpers/dialog_helper.dart';
 class SocketController extends GetxController {
   Echo<pusher.PusherClient, PusherChannel>? echo;
 
-  void listenToCandidatVoiceUpdated({required int voteId}) async {
+  void listenToCandidatVoiceUpdated({
+    required String voteId,
+    required void Function(int candidatId, int voix) onVoteUpdated,
+  }) async {
     ecouter(
-        channel: 'newVoice.$voteId',
-        event: 'newVoice-event',
-        action: (e) {
-          print("new vote did $e");
-        });
+      channel: 'newVoice.$voteId',
+      event: 'newVoice-event',
+      action: (e) {
+        try {
+          final data = e['candidat'];
+          final candidatId = data['candidat_id'];
+          final voix = data['voix'];
+
+          if (candidatId is int && voix is int) {
+            onVoteUpdated(candidatId, voix);
+          }
+        } catch (e) {
+          print("Erreur lors du traitement du vote: $e");
+        }
+      },
+    );
   }
 
-  Future<void> connectToSocket({required int voteId}) async {
+  Future<void> connectToSocket({
+    required String voteId,
+    required void Function(int candidatId, int voix) onVoteUpdated,
+  }) async {
     try {
       echo ??= await EchoService.initEcho();
       echo!.connector.onConnect((data) {
-        print("it%%%%%%%%%%%");
-        initialSoketSubcription(voteId: voteId);
+        listenToCandidatVoiceUpdated(
+            voteId: voteId, onVoteUpdated: onVoteUpdated);
       });
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "socket error: $e");
     }
-  }
-
-  Future<void> initialSoketSubcription({required int voteId}) async {
-    listenToCandidatVoiceUpdated(voteId: voteId);
   }
 
   void ecouter(

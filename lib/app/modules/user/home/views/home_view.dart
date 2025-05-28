@@ -20,7 +20,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: maxContentWidth),
@@ -51,6 +51,7 @@ class HomeView extends GetView<HomeController> {
                     const SizedBox(height: 16),
                     CustomText(
                       text: controller.voteCandidats.value?.vote.title ?? "",
+                      overflow: TextOverflow.visible,
                       style: const TextStyle(
                         fontSize: 22,
                         color: AppColors.title,
@@ -62,9 +63,10 @@ class HomeView extends GetView<HomeController> {
                     CustomText(
                       text: controller.voteCandidats.value?.vote.description ??
                           "",
+                      overflow: TextOverflow.visible,
                       style:
                           const TextStyle(fontSize: 14, color: Colors.black54),
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.justify,
                     ),
                     const SizedBox(height: 20),
                     _buildTabBar(),
@@ -264,25 +266,11 @@ class HomeView extends GetView<HomeController> {
                                           vertical: 15, horizontal: 0),
                                       mainAxisSize: MainAxisSize.max,
                                       onPressed: () {
-                                        showDialog(
-                                          context: Get.context!,
-                                          builder: (context) {
-                                            return ConfirmationPopup(
-                                              onCancel: () {
-                                                Get.back();
-                                              },
-                                              onConfirm: () {
-                                                Get.toNamed(Routes.CANAL_VOTE,
-                                                    arguments: {
-                                                      'voteId':
-                                                          voteCandidats.vote.id,
-                                                      'candidateId':
-                                                          candidate.id
-                                                    });
-                                              },
-                                            );
-                                          },
-                                        );
+                                        Get.toNamed(Routes.CANAL_VOTE,
+                                            arguments: {
+                                              'voteId': voteCandidats.vote.id,
+                                              'candidateId': candidate.id
+                                            });
                                       },
                                       buttonTitle: LocaleKeys.voter.tr,
                                     ),
