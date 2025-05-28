@@ -1,34 +1,24 @@
 import 'dart:convert';
-import 'package:faso_vote_client/app/data/models/phone.dart';
 import 'package:faso_vote_client/app/utils/helpers/storage_helper.dart';
 
 class User {
   final int id;
   final String? username;
-  final String? firstname;
-  final String? lastname;
-  final bool? hasSecret;
-  final List<Phone>? phones;
+  final String? email;
+
+
   User({
     required this.id,
     required this.username,
-    required this.firstname,
-    required this.lastname,
-    required this.hasSecret,
-    required this.phones,
+    required this.email,
+ 
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'] as int,
-      username: json['username'],
-      firstname: json['firstname'],
-      lastname: json['lastname'],
-      hasSecret: json['has_secret'],
-      phones: (json['phones'] as List<dynamic>?)
-              ?.map((phone) => Phone.fromJson(phone))
-              .toList() ??
-          [],
+      username: json['name'],
+       email: json['email'],
     );
   }
 
@@ -36,28 +26,19 @@ class User {
     return {
       'id': id,
       'username': username,
-      'firstname': firstname,
-      'lastname': lastname,
-      'has_secret': hasSecret,
-      'phones': phones?.map((phone) => phone.toJson()).toList(),
+      'email': email,
     };
   }
 
   User copyWith({
     int? id,
     String? username,
-    String? firstname,
-    String? lastname,
-    bool? hasSecret,
-    List<Phone>? phones,
+    String? email,
   }) {
     return User(
       id: id ?? this.id,
       username: username ?? this.username,
-      firstname: firstname ?? this.firstname,
-      lastname: lastname ?? this.lastname,
-      hasSecret: hasSecret ?? this.hasSecret,
-      phones: phones ?? this.phones,
+      email: email ?? this.email,
     );
   }
 

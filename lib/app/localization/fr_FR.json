@@ -65,6 +65,11 @@
   "voter":"Voter",
   "phonenumber": "Numéro de téléphone",
   "msg_popup_candidat": "Êtes-vous sûr(e) de votre choix ? Il est important de savoir que cette opération, une fois votée, ne pourra pas être annulée.",
+  "copy":"Copier",
+  "link_copied":"Lien copié avec succes",
+
+   "login_title": "Authentication",
+     "enter_email_address":"Entrer votre address email",
   "buttons": {
     "no": "Non",
     "yes": "Oui",

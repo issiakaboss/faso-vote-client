@@ -1,3 +1,4 @@
+import 'package:faso_vote_client/app/data/models/statistic.dart';
 import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
@@ -9,19 +10,20 @@ class SocketController extends GetxController {
 
   void listenToCandidatVoiceUpdated({
     required String voteId,
-    required void Function(int candidatId, int voix) onVoteUpdated,
+    required void Function(int candidatId, int voix,StatisticModel newNtatistic) onVoteUpdated,
   }) async {
     ecouter(
       channel: 'newVoice.$voteId',
       event: 'newVoice-event',
       action: (e) {
         try {
-          final data = e['candidat'];
-          final candidatId = data['candidat_id'];
-          final voix = data['voix'];
+          StatisticModel newNtatistic=StatisticModel.fromJson(e['statistics']);
+          final candidatData = e['candidat'];
+          final candidatId = candidatData['candidat_id'];
+          final voix = candidatData['voix'];
 
           if (candidatId is int && voix is int) {
-            onVoteUpdated(candidatId, voix);
+            onVoteUpdated(candidatId, voix,newNtatistic);
           }
         } catch (e) {
           print("Erreur lors du traitement du vote: $e");
@@ -32,7 +34,7 @@ class SocketController extends GetxController {
 
   Future<void> connectToSocket({
     required String voteId,
-    required void Function(int candidatId, int voix) onVoteUpdated,
+    required void Function(int candidatId, int voix,StatisticModel newNtatistic) onVoteUpdated,
   }) async {
     try {
       echo ??= await EchoService.initEcho();

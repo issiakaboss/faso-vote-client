@@ -1,5 +1,5 @@
 // home_view.dart
-import 'package:faso_vote_client/app/data/models/vote_candidats.dart';
+import 'package:faso_vote_client/app/data/models/statistic.dart';
 import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,6 @@ import '../../../../themes/app_colors.dart';
 import '../controllers/home_controller.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_card.dart';
-import 'package:faso_vote_client/app/widgets/custom_popup.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 
@@ -163,16 +162,20 @@ class HomeView extends GetView<HomeController> {
             final cardWidth =
                 (constraints.maxWidth - (columnCount - 1) * spacing) /
                     columnCount;
-
+            StatisticModel? statistic =
+                controller.voteCandidats.value?.statistic;
             return Wrap(
               spacing: spacing,
               runSpacing: spacing,
               children: [
-                resultCard("8000", LocaleKeys.votes_total.tr, Colors.black,
+                resultCard(statistic?.total.toString() ?? '',
+                    LocaleKeys.votes_total.tr, Colors.black,
                     width: cardWidth),
-                resultCard("4000", LocaleKeys.ayant_vote.tr, Colors.green,
+                resultCard(statistic?.voted.toString() ?? '',
+                    LocaleKeys.ayant_vote.tr, Colors.green,
                     width: cardWidth),
-                resultCard("4000", LocaleKeys.non_vote.tr, Colors.red,
+                resultCard(statistic?.invalid.toString() ?? '',
+                    LocaleKeys.non_vote.tr, Colors.red,
                     width: cardWidth),
               ],
             );
@@ -237,14 +240,16 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              CustomText(
-                                overflow: TextOverflow.visible,
-                                text: candidate.theme ?? "",
-                                color: Colors.grey,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),
+                              selectedTabIndex == 0
+                                  ? CustomText(
+                                      overflow: TextOverflow.visible,
+                                      text: candidate.theme ?? "",
+                                      color: Colors.grey,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
                               const Spacer(),
                               selectedTabIndex == 1
                                   ? MainCard(

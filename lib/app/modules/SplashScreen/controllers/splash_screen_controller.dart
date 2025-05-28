@@ -11,7 +11,7 @@ class SplashScreenController extends GetxController {
   void onReady() {
     super.onReady();
     Future.delayed(
-        const Duration(seconds: 2), () => Get.offNamed('${Routes.vote}/2'));
+        const Duration(seconds: 2), () => Get.offNamed(AppPages.AUTH));
   }
 
   @override

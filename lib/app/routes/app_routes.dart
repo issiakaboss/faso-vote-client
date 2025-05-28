@@ -9,18 +9,20 @@ abstract class Routes {
   static const ADDING_VOTE = _Paths.ADDING_VOTE;
   static const CANAL_VOTE = _Paths.CANAL_VOTE;
   static const CANDIDATS = _Paths.CANDIDATS;
-  static const VOTE_DETAIL =  _Paths.VOTE_DETAIL;
-  static const RESULTS =  _Paths.RESULTS;
+  static const VOTE_DETAIL = _Paths.VOTE_DETAIL;
+  static const RESULTS = _Paths.RESULTS;
+  static const AUTH = _Paths.AUTH;
 }
 
 abstract class _Paths {
   _Paths._();
   static const vote = '/vote';
   static const splashscreen = '/splash-screen';
-  static const DASHBOARD = '/dashboard';
-  static const ADDING_VOTE = '/adding-vote';
+  static const DASHBOARD = '/admin/dashboard';
+  static const ADDING_VOTE = '/admin/adding-vote';
   static const CANAL_VOTE = '/canal-vote';
-  static const CANDIDATS = '/candidats';
-  static const VOTE_DETAIL = '/vote-detail';
-  static const RESULTS = '/results';
+  static const CANDIDATS = '/admin/candidats';
+  static const VOTE_DETAIL = '/admin/vote-detail';
+  static const RESULTS = '/admin/results';
+  static const AUTH = '/admin/auth';
 }

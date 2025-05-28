@@ -59,6 +59,10 @@ class LocaleKeys {
   static const add_logo = 'add_logo';
   static const description = 'description';
   static const enter_description = 'enter_description';
+  static const copy = 'copy';
+  static const link_copied = 'link_copied';
+  static const login_title = 'login_title';
+  static const enter_email_address = 'enter_email_address';
   static const buttons_no = 'buttons_no';
   static const buttons_yes = 'buttons_yes';
   static const buttons_continuous = 'buttons_continuous';
@@ -147,6 +151,10 @@ class Locales {
     'add_logo': 'Add a logo',
     'description': 'Description',
     'enter_description': 'Add description to help electors',
+    'copy': 'Copy',
+    'link_copied': 'Link successfull copied',
+    'login_title': 'Authenticating',
+    'enter_email_address': 'Enter your email address',
     'buttons_no': 'No',
     'buttons_yes': 'Yes',
     'buttons_continuous': 'Continuous',
@@ -234,6 +242,10 @@ class Locales {
     'phonenumber': 'Numéro de téléphone',
     'msg_popup_candidat':
         'Êtes-vous sûr(e) de votre choix ? Il est important de savoir que cette opération, une fois votée, ne pourra pas être annulée.',
+    'copy': 'Copier',
+    'link_copied': 'Lien copié avec succes',
+    'login_title': 'Authentication',
+    'enter_email_address': 'Entrer votre address email',
     'buttons_no': 'Non',
     'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',

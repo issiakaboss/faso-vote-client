@@ -12,10 +12,10 @@ abstract class ApiProvider {
   static Future<dynamic> get(
       {bool auth = true, required String apiURL, bool isPhone = false}) async {
     try {
-      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
+    
       var response = await http
           .get(Uri.parse(ApiClient.baseUrl + apiURL),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers: ApiClient.headers(auth: auth))
           .timeout(const Duration(seconds: timeOutDuration));
       return ApiClient.processResponse(response);
     } on SocketException {
@@ -31,11 +31,11 @@ abstract class ApiProvider {
       required String apiURL,
       bool isPhone = false}) async {
     try {
-      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
+
       var response = await http
           .post(Uri.parse(ApiClient.baseUrl + apiURL),
               body: jsonEncode(data),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers: ApiClient.headers(auth: auth))
           .timeout(const Duration(seconds: timeOutDuration));
 
       return ApiClient.processResponse(response);
@@ -153,10 +153,10 @@ abstract class ApiProvider {
   static Future<dynamic> delete(
       {bool auth = false, required String apiURL}) async {
     try {
-      String token = Token.getAuthToken();
+  
       var response = await http
           .delete(Uri.parse(ApiClient.baseUrl + apiURL),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers: ApiClient.headers(auth: auth))
           .timeout(const Duration(seconds: timeOutDuration));
       return ApiClient.processResponse(response);
     } on SocketException {

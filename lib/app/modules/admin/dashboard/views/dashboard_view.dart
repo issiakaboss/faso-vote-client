@@ -2,6 +2,7 @@ import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/utils/constants/app_constant.dart';
+import 'package:faso_vote_client/app/utils/functions/function.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:faso_vote_client/generated/locales.g.dart';
@@ -189,6 +190,19 @@ class DashboardView extends GetView<DashboardController> {
                               onDeleteTap: (vote) {
                                 controller.deleteVote(voteId: vote.id);
                               },
+                              onShareTap: (vote) {
+                                Get.toNamed('${Routes.vote}/${vote.id}');
+                              },
+                              onCopyTap: (vote) {
+                                Functions.copyText(text: vote.url);
+                                print("url ${vote.url}");
+                                // Get.toNamed('${Routes.vote}/${vote.uuid}');
+                              },
+                              onResutlTap: (vote) {
+                                Get.toNamed(AppPages.VOTE_DETAIL,
+                                    arguments: vote);
+                              },
+                              onUnBlockTap: (vote) {},
                             ),
                           );
                         },

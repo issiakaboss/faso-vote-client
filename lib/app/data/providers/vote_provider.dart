@@ -42,6 +42,31 @@ class VoteProvider with BaseProvider {
         apiURL: ApiRoutes.voteCandidats.format({"vote": voteId}),
       );
       if (response != null) {
+        print("response data $response");
+        final VoteCandidats voteCandidats =
+            VoteCandidats.fromJson(response['data']);
+
+        return voteCandidats;
+      }
+      return null;
+    } on ApiException catch (e) {
+      if (onError != null) onError(e.message ?? '');
+      return null;
+    } catch (e) {
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<VoteCandidats?> fetchGuestVoteCandidats(
+      {required String voteId, ValueSetter<String>? onError}) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.gestVoteCandidats.format({"vote": voteId}),
+      );
+      if (response != null) {
+        print(" gest response data $response");
         final VoteCandidats voteCandidats =
             VoteCandidats.fromJson(response['data']);
 

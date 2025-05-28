@@ -1,4 +1,8 @@
 
+import 'package:get/get.dart';
+import 'package:clipboard/clipboard.dart';
+import '../../../generated/locales.g.dart';
+
 class Functions {
   static String currencyToEmoji(String countyCode) {
     countyCode = countyCode.toUpperCase();
@@ -7,5 +11,15 @@ class Functions {
     return String.fromCharCode(firstLetter) + String.fromCharCode(secondLetter);
   }
 
-
+  static void copyText({required String text, String? message}) {
+    FlutterClipboard.copy(text).then(
+      (value) => Get.snackbar(
+        LocaleKeys.copy.tr,
+        message ?? LocaleKeys.link_copied.tr,
+        colorText: Get.theme.cardColor,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.primaryColor.withOpacity(0.5),
+      ),
+    );
+  }
 }

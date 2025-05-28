@@ -1,19 +1,17 @@
 enum ApiRoutes {
   // auth
-  login('v1/app/login'),
-  register('v1/app/register'),
-  logout('v1/app/logout'),
-  storeSecret('v1/app/store-secret'),
-  storePhone('v1/app/phones'),
-  removePhone('v1/app/phones/{phone}/delete'),
-  resendOtp('v1/app/phones/{phone_id}/resend-otp'),
-  verifyOtp('v1/app/phones/{phone_id}/verify/{code}'),
+  login('auth/login'),
+  register('auth/register'),
+  logout('auth/logout'),
+  resendOtp('auth/phones/{phone_id}/resend-otp'),
+  verifyOtp('auth/phones/{phone_id}/verify/{code}'),
 
 // vote route
   votes('votes'),
   editVote('votes/{vote}/edit'),
   deleteVote('votes/{vote}'),
   voteCandidats('votes/{vote}'),
+  gestVoteCandidats('vote/{vote}'),
   updateVote('votes/{vote}'),
   candidats('candidates'),
   updateCandidat('candidates/{candidat}'),

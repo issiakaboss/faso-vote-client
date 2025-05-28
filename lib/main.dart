@@ -12,9 +12,13 @@ import 'app/common/initial_binding.dart';
 import 'app/config/env.dart';
 import 'app/routes/app_pages.dart';
 import 'app/utils/services/localization_service.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    setUrlStrategy(PathUrlStrategy());
+
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   SystemChrome.setPreferredOrientations([

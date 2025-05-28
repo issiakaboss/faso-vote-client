@@ -48,6 +48,12 @@
   "description": "Description",
   "enter_description": "Add description to help electors",
 
+  "copy":"Copy",
+  "link_copied":"Link successfull copied",
+
+   "login_title": "Authenticating",
+     "enter_email_address":"Enter your email address",
+
     "buttons": {
       "no": "No",
       "yes": "Yes",
