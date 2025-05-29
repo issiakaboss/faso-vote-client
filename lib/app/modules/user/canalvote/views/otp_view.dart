@@ -1,5 +1,6 @@
 import 'package:faso_vote_client/app/modules/user/canalvote/controllers/canalvote_controller.dart';
 import 'package:faso_vote_client/app/modules/user/canalvote/views/finalyse_vote_view.dart';
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class OtpView extends GetView<CanalvoteController> {
-  Map<String, dynamic> voteCandidatData;
-  OtpView({super.key, required this.voteCandidatData});
+  Map<String, dynamic> voteCandidatData=Get.arguments;
+  OtpView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +106,7 @@ class OtpView extends GetView<CanalvoteController> {
                       height: 45,
                       child: CustomButton.primaryButton(
                         onPressed: () {
-                          Get.to(() => FinalyseVoteView(
-                              voteCandidatData: voteCandidatData));
+                          Get.toNamed(AppPages.FINAL_VOTE,arguments: voteCandidatData);
                         },
                         buttonTitle: "Continuer",
                       ),

@@ -70,32 +70,23 @@ class VoteCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Row(
-                children: [
-                  Tooltip(
-                    padding: const EdgeInsets.all(10.0),
-                    richMessage: TextSpan(
-                      text: LocaleKeys.description.tr,
+              child: SizedBox(
+                height: 50,
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Column(
                       children: [
-                        TextSpan(
-                            text: vote.description,
-                            style: AppTextStyles.bodyText3().copyWith(
-                              overflow: TextOverflow.visible,
-                              color: Colors.white,
-                            )),
+                        CustomText(
+                          text: vote.description ?? "",
+                          overflow: TextOverflow.visible,
+                          style: AppTextStyles.bodyText2(),
+                        ),
                       ],
                     ),
-                    child: CustomText(
-                      text: vote.description!.length > 30
-                          ? vote.description
-                                  ?.substring(0, 30)
-                                  .padRight(33, '.') ??
-                              ''
-                          : vote.description ?? "",
-                      style: AppTextStyles.bodyText2(),
-                    ),
                   ),
-                ],
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -160,119 +151,127 @@ class VoteCard extends StatelessWidget {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(top: 2.0),
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  if (vote.status == "Inactive")
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 140),
-                      child: CustomButton.outlineButton(
-                          onPressed: () => onUnBlockTap?.call(vote),
-                          buttonTitle: "Débloquer",
-                          fontSize: 12,
-                          borderRadius: 50.0,
-                          borderColor: Colors.grey,
-                          forgroundColor: Colors.black,
-                          prefix: const Icon(
-                            Icons.lock_open,
-                            size: 12.0,
-                            color: Colors.black,
-                          )),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                child: Row(
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: [
+                        if (vote.status == "Inactive")
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 140),
+                            child: CustomButton.outlineButton(
+                                onPressed: () => onUnBlockTap?.call(vote),
+                                buttonTitle: "Débloquer",
+                                fontSize: 12,
+                                borderRadius: 50.0,
+                                borderColor: Colors.grey,
+                                forgroundColor: Colors.black,
+                                prefix: const Icon(
+                                  Icons.lock_open,
+                                  size: 12.0,
+                                  color: Colors.black,
+                                )),
+                          ),
+                        if (vote.status == "Active")
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 140),
+                            child: CustomButton.outlineButton(
+                                onPressed: () => onBlockTap?.call(vote),
+                                buttonTitle: "Bloquer",
+                                fontSize: 12,
+                                borderRadius: 50.0,
+                                borderColor: Colors.grey,
+                                forgroundColor: Colors.black,
+                                prefix: const Icon(
+                                  Icons.lock_open,
+                                  size: 12.0,
+                                  color: Colors.black,
+                                )),
+                          ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 140),
+                          child: CustomButton.outlineButton(
+                              onPressed: () => onEditTap?.call(vote),
+                              buttonTitle: "Éditer",
+                              fontSize: 12,
+                              borderRadius: 50.0,
+                              borderColor: Colors.purple,
+                              forgroundColor: Colors.purple,
+                              prefix: const Icon(
+                                Icons.edit,
+                                size: 12.0,
+                                color: Colors.purple,
+                              )),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 140),
+                          child: CustomButton.outlineButton(
+                              onPressed: () => onDeleteTap?.call(vote),
+                              buttonTitle: "Supprimer",
+                              fontSize: 12,
+                              borderRadius: 50.0,
+                              borderColor: Colors.red,
+                              forgroundColor: Colors.red,
+                              prefix: const Icon(
+                                Icons.delete_forever,
+                                size: 12.0,
+                                color: Colors.red,
+                              )),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 140),
+                          child: CustomButton.outlineButton(
+                              onPressed: () => onResutlTap?.call(vote),
+                              buttonTitle: "Détails",
+                              fontSize: 12,
+                              borderRadius: 50.0,
+                              borderColor: Colors.blueAccent,
+                              forgroundColor: Colors.blueAccent,
+                              prefix: const Icon(
+                                Icons.visibility,
+                                size: 12.0,
+                                color: Colors.blueAccent,
+                              )),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 130),
+                          child: CustomButton.outlineButton(
+                              onPressed: () => onShareTap?.call(vote),
+                              buttonTitle: "Partager lien",
+                              fontSize: 12,
+                              borderRadius: 50.0,
+                              borderColor: Colors.grey,
+                              forgroundColor: Colors.blue,
+                              prefix: const Icon(
+                                Icons.share,
+                                size: 12.0,
+                                color: Colors.blue,
+                              )),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(maxWidth: 120),
+                          child: CustomButton.outlineButton(
+                              onPressed: () => onCopyTap?.call(vote),
+                              buttonTitle: "Copier lien",
+                              fontSize: 12,
+                              borderRadius: 50.0,
+                              borderColor: Colors.grey,
+                              forgroundColor: Colors.grey,
+                              prefix: const Icon(
+                                Icons.copy,
+                                size: 12.0,
+                                color: Colors.grey,
+                              )),
+                        ),
+                      ],
                     ),
-                  if (vote.status == "Active")
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 140),
-                      child: CustomButton.outlineButton(
-                          onPressed: () => onBlockTap?.call(vote),
-                          buttonTitle: "Bloquer",
-                          fontSize: 12,
-                          borderRadius: 50.0,
-                          borderColor: Colors.grey,
-                          forgroundColor: Colors.black,
-                          prefix: const Icon(
-                            Icons.lock_open,
-                            size: 12.0,
-                            color: Colors.black,
-                          )),
-                    ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 140),
-                    child: CustomButton.outlineButton(
-                        onPressed: () => onEditTap?.call(vote),
-                        buttonTitle: "Éditer",
-                        fontSize: 12,
-                        borderRadius: 50.0,
-                        borderColor: Colors.purple,
-                        forgroundColor: Colors.purple,
-                        prefix: const Icon(
-                          Icons.edit,
-                          size: 12.0,
-                          color: Colors.purple,
-                        )),
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 140),
-                    child: CustomButton.outlineButton(
-                        onPressed: () => onDeleteTap?.call(vote),
-                        buttonTitle: "Supprimer",
-                        fontSize: 12,
-                        borderRadius: 50.0,
-                        borderColor: Colors.red,
-                        forgroundColor: Colors.red,
-                        prefix: const Icon(
-                          Icons.delete_forever,
-                          size: 12.0,
-                          color: Colors.red,
-                        )),
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 140),
-                    child: CustomButton.outlineButton(
-                        onPressed: () => onResutlTap?.call(vote),
-                        buttonTitle: "Détails",
-                        fontSize: 12,
-                        borderRadius: 50.0,
-                        borderColor: Colors.blueAccent,
-                        forgroundColor: Colors.blueAccent,
-                        prefix: const Icon(
-                          Icons.visibility,
-                          size: 12.0,
-                          color: Colors.blueAccent,
-                        )),
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 130),
-                    child: CustomButton.outlineButton(
-                        onPressed: () => onShareTap?.call(vote),
-                        buttonTitle: "Partager lien",
-                        fontSize: 12,
-                        borderRadius: 50.0,
-                        borderColor: Colors.grey,
-                        forgroundColor: Colors.blue,
-                        prefix: const Icon(
-                          Icons.share,
-                          size: 12.0,
-                          color: Colors.blue,
-                        )),
-                  ),
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 120),
-                    child: CustomButton.outlineButton(
-                        onPressed: () => onCopyTap?.call(vote),
-                        buttonTitle: "Copier lien",
-                        fontSize: 12,
-                        borderRadius: 50.0,
-                        borderColor: Colors.grey,
-                        forgroundColor: Colors.grey,
-                        prefix: const Icon(
-                          Icons.copy,
-                          size: 12.0,
-                          color: Colors.grey,
-                        )),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],

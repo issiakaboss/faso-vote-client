@@ -21,7 +21,6 @@ class AuthProvider with BaseProvider {
         apiURL: ApiRoutes.login.path,
         data: data,
       ).catchError((error) {
-       
         if (onError != null) {
           onError((error as ApiException).message);
         }
@@ -104,7 +103,6 @@ class AuthProvider with BaseProvider {
     try {
       return await ApiProvider.get(
         auth: true,
-        isPhone: isPhone,
         apiURL: ApiRoutes.verifyOtp
             .format({'phone_id': phoneId.toString(), 'code': otp}),
       ).catchError(handleError).then((response) {
@@ -119,11 +117,28 @@ class AuthProvider with BaseProvider {
     }
   }
 
+  Future<bool> googleAuth() async {
+    try {
+      return await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.googleAuth.path,
+      ).catchError(handleError).then((response) {
+        if (response != null) {
+          print("response $response");
+          return true;
+        }
+        return false;
+      });
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
+      return false;
+    }
+  }
+
   Future<bool> resendOtp({required int phoneId, required bool isPhone}) async {
     try {
       return await ApiProvider.get(
         auth: true,
-        isPhone: isPhone,
         apiURL: ApiRoutes.resendOtp.format({'phone_id': phoneId.toString()}),
       ).catchError(handleError).then((response) {
         if (response != null) {

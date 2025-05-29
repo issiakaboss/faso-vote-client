@@ -42,7 +42,6 @@ class VoteProvider with BaseProvider {
         apiURL: ApiRoutes.voteCandidats.format({"vote": voteId}),
       );
       if (response != null) {
-        print("response data $response");
         final VoteCandidats voteCandidats =
             VoteCandidats.fromJson(response['data']);
 
@@ -66,7 +65,6 @@ class VoteProvider with BaseProvider {
         apiURL: ApiRoutes.gestVoteCandidats.format({"vote": voteId}),
       );
       if (response != null) {
-        print(" gest response data $response");
         final VoteCandidats voteCandidats =
             VoteCandidats.fromJson(response['data']);
 

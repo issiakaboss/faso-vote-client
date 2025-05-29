@@ -11,8 +11,8 @@ class MainCard extends StatelessWidget {
   final double blurRadius;
   final double spreadRadius;
   final BlurStyle blurStyle;
-  final double cardWidth;
-  final double cardHeight;
+  final double? cardWidth;
+  final double? cardHeight;
   final BorderRadiusGeometry? borderRadius;
   final EdgeInsetsGeometry? padding;
   final Gradient? gradient;
@@ -31,7 +31,7 @@ class MainCard extends StatelessWidget {
     this.spreadRadius = 0.0,
     this.blurStyle = BlurStyle.normal,
     this.cardWidth = 100,
-    this.cardHeight = 50,
+    this.cardHeight,
     this.borderRadius,
     this.padding,
     this.gradient,

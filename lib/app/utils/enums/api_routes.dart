@@ -2,6 +2,7 @@ enum ApiRoutes {
   // auth
   login('auth/login'),
   register('auth/register'),
+  googleAuth('auth/google/redirect'),
   logout('auth/logout'),
   resendOtp('auth/phones/{phone_id}/resend-otp'),
   verifyOtp('auth/phones/{phone_id}/verify/{code}'),

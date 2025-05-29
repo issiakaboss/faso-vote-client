@@ -40,69 +40,33 @@ class DashboardView extends GetView<DashboardController> {
                       // Top bar with logo, toggle, and profile/language
                       SizedBox(
                         height: responsive.isMobile
-                            ? context.height / 6
+                            ? context.height / 10
                             : context.height / 8,
-                        child: responsive.isMobile
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(Icons.logo_dev),
-                                  ),
-                                  ToggleVotes(
-                                    onChanged: (index) {
-                                      controller.selectedToggleIndex.value =
-                                          index;
-                                    },
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.language)),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.account_circle),
-                                        iconSize: 40,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(Icons.logo_dev),
-                                  ),
-                                  ToggleVotes(
-                                    onChanged: (index) {
-                                      controller.selectedToggleIndex.value =
-                                          index;
-                                    },
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.language)),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.account_circle),
-                                        iconSize: 50,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(Icons.logo_dev),
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.language)),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.account_circle),
+                                  iconSize: 50,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
 
-                      const SizedBox(height: 10),
+                      SizedBox(height: responsive.isMobile ? 0 : 10),
 
                       // Title and new vote button
                       responsive.isMobile
@@ -165,7 +129,7 @@ class DashboardView extends GetView<DashboardController> {
                             childAspectRatio: responsive.isMobile
                                 ? 0.95
                                 : responsive.isTablet
-                                    ? 0.9
+                                    ? 0.75
                                     : 0.7),
                         itemCount: votes.length,
                         shrinkWrap: true,
@@ -191,7 +155,8 @@ class DashboardView extends GetView<DashboardController> {
                                 controller.deleteVote(voteId: vote.id);
                               },
                               onShareTap: (vote) {
-                                Get.toNamed('${Routes.vote}/${vote.id}');
+                                Get.toNamed('${Routes.vote}/${vote.uuid}',
+                                    preventDuplicates: false);
                               },
                               onCopyTap: (vote) {
                                 Functions.copyText(text: vote.url);

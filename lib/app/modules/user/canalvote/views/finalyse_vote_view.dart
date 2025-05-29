@@ -10,8 +10,8 @@ import '../../../../widgets/custom_popup.dart';
 import '../../../../widgets/custom_text.dart';
 
 class FinalyseVoteView extends GetView {
-  Map<String, dynamic> voteCandidatData;
-  FinalyseVoteView({super.key, required this.voteCandidatData});
+  Map<String, dynamic>? voteCandidatData = Get.arguments;
+  FinalyseVoteView({super.key});
   @override
   Widget build(BuildContext context) {
     print("Vote data 3 final vote $voteCandidatData");
@@ -113,7 +113,7 @@ class FinalyseVoteView extends GetView {
                     borderRadius: 5,
                     onPressed: () {
                       Get.offAllNamed(
-                          '${Routes.vote}/${voteCandidatData['voteId']}');
+                          '${Routes.vote}/${voteCandidatData?['voteUuid']}');
                     },
                   ),
                 ],

@@ -43,8 +43,8 @@ class CandidatGridList extends StatelessWidget {
         mainAxisExtent: responsive.isMobile
             ? 300
             : responsive.isTablet
-                ? 280
-                : 290,
+                ? 290
+                : 300,
       ),
       shrinkWrap: true,
       physics: const AlwaysScrollableScrollPhysics(),
@@ -66,28 +66,35 @@ class CandidatGridList extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: candidat.photoUrl != null
-                          ? Image.network(
-                              width: 120,
-                              height: 100,
-                              candidat.photoUrl!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Center(
-                                  child: Container(
+                    Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.grey.shade300,
+                          width: 1.0,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: candidat.photoUrl != null
+                            ? Image.network(
+                                candidat.photoUrl!,
+                                width: 120,
+                                height: 120,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
                                     color: const Color.fromARGB(
                                         255, 210, 210, 210),
-                                    width: 120,
-                                    height: 100,
                                     child: const Icon(Icons.broken_image,
                                         size: 25),
-                                  ),
-                                );
-                              },
-                            )
-                          : const Icon(Icons.person, size: 80),
+                                  );
+                                },
+                              )
+                            : const Icon(Icons.person, size: 80),
+                      ),
                     ),
                     const SizedBox(width: 14),
                     Expanded(
@@ -106,7 +113,7 @@ class CandidatGridList extends StatelessWidget {
                             overflow: TextOverflow.visible,
                             style: AppTextStyles.heading4().copyWith(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: 16,
                                 color: AppColors.primary),
                           ),
                         ],
@@ -120,14 +127,16 @@ class CandidatGridList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Theme",
+                        text: "Thème",
                         overflow: TextOverflow.visible,
-                        style: AppTextStyles.heading6(),
+                        style: AppTextStyles.heading6()
+                            .copyWith(fontWeight: FontWeight.bold),
                       ),
                       CustomText(
                         text: candidat.theme ?? "Thème inconnu",
                         overflow: TextOverflow.visible,
-                        style: AppTextStyles.bodyText2(),
+                        style: AppTextStyles.bodyText2().copyWith(
+                            fontStyle: FontStyle.italic, fontSize: 15),
                       ),
                     ],
                   ),

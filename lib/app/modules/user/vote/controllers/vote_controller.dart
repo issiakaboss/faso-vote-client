@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../data/providers/vote_provider.dart';
 
-class HomeController extends GetxController {
+class VoteController extends GetxController {
   SocketController socketController = Get.find<SocketController>();
   var selectedTab = 0.obs;
   Rxn<VoteCandidats> voteCandidats = Rxn<VoteCandidats>();

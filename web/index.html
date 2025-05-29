@@ -21,6 +21,7 @@
   <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
+    <meta name="google-signin-client_id" content="940565321151-9utq5414u31uun4nt4qqhsgmg29rpkue.apps.googleusercontent.com">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="faso_vote_client">
@@ -31,6 +32,16 @@
 
   <title>faso_vote_client</title>
   <link rel="manifest" href="manifest.json">
+   <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <script>
+    // Load the Google API
+    function loadGoogleSignInApi() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>

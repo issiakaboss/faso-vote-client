@@ -14,10 +14,11 @@ import 'app/routes/app_pages.dart';
 import 'app/utils/services/localization_service.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'app/utils/services/sroll_behavior.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    setUrlStrategy(PathUrlStrategy());
+  setUrlStrategy(PathUrlStrategy());
 
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -36,8 +37,9 @@ void main() async {
   runApp(
     GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
         title: Env.appName,
-        initialRoute: AppPages.splashscreen,
+        initialRoute: AppPages.AUTH,
         initialBinding: InitialBinding(),
         getPages: AppPages.routes,
         locale: LocalizationService.to.getCurrentLocale(),

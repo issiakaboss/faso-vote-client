@@ -8,6 +8,8 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const ADDING_VOTE = _Paths.ADDING_VOTE;
   static const CANAL_VOTE = _Paths.CANAL_VOTE;
+  static const FINAL_VOTE = _Paths.FINAL_VOTE;
+  static const OTP = _Paths.OTP;
   static const CANDIDATS = _Paths.CANDIDATS;
   static const VOTE_DETAIL = _Paths.VOTE_DETAIL;
   static const RESULTS = _Paths.RESULTS;
@@ -21,6 +23,8 @@ abstract class _Paths {
   static const DASHBOARD = '/admin/dashboard';
   static const ADDING_VOTE = '/admin/adding-vote';
   static const CANAL_VOTE = '/canal-vote';
+  static const FINAL_VOTE = '/final-vote';
+  static const OTP = '/otp';
   static const CANDIDATS = '/admin/candidats';
   static const VOTE_DETAIL = '/admin/vote-detail';
   static const RESULTS = '/admin/results';
