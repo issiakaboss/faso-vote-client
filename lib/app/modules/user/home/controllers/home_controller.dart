@@ -1,33 +1,54 @@
-import 'package:faso_vote_client/app/data/models/candidate.dart';
+import 'package:faso_vote_client/app/common/controllers/socket_controller.dart';
+import 'package:faso_vote_client/app/data/models/statistic.dart';
+import 'package:faso_vote_client/app/data/models/vote_candidats.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
-  var selectedTab = 0.obs;
+import '../../../../data/providers/vote_provider.dart';
 
-  final candidates = <Candidat>[
-    Candidat(
-      id: 1,
-      fullName: 'Dr Madou KAKOU',
-      etablissement: 'Université Félix Houphouët-Boigny d’Abidjan',
-      theme:
-          'Étude de la catalyse hétérogène dans la synthèse verte de composés organiques',
-      photoUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
-    ),
-    Candidat(
-      id: 2,
-      fullName: 'Mme Aïcha KONÉ',
-      etablissement: 'Université Nangui Abrogoua',
-      theme:
-          'Impact des biofertilisants sur la croissance du maïs en zone tropicale',
-      photoUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
-    ),
-    Candidat(
-      id: 3,
-      fullName: 'Dr Issa TRAORÉ',
-      etablissement: 'INP-HB (Institut National Polytechnique)',
-      theme:
-          'Modélisation numérique des propriétés thermiques des matériaux composites',
-      photoUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
-    ),
-  ].obs;
+class HomeController extends GetxController {
+  SocketController socketController = Get.find<SocketController>();
+  var selectedTab = 0.obs;
+  Rxn<VoteCandidats> voteCandidats = Rxn<VoteCandidats>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    final voteId = Get.parameters['id'];
+    if (voteId != null) {
+      print("voteId $voteId");
+      socketController.connectToSocket(
+        voteId: voteId,
+        onVoteUpdated: (int candidatId, int voix, StatisticModel newStatistic) {
+          // Met à jour localement le candidat correspondant
+          final candidats = voteCandidats.value?.candidats;
+
+          if (candidats != null) {
+            final index = candidats.indexWhere((c) => c.id == candidatId);
+            if (index != -1) {
+              candidats[index] = candidats[index].copyWith(voix: voix);
+              voteCandidats.refresh();
+            }
+
+            voteCandidats.value = voteCandidats.value!.copyWith(
+              statistic: newStatistic,
+            );
+            voteCandidats.refresh();
+          }
+        },
+      );
+      loadVoteCandidats(voteId: voteId);
+    } else {
+      Get.snackbar("Erreur", "Aucun identifiant de vote trouvé dans l'URL.");
+    }
+  }
+
+  void loadVoteCandidats({required String voteId}) async {
+    final _voteCandidats = await VoteProvider().fetchGuestVoteCandidats(
+      voteId: voteId,
+      onError: (error) => Get.snackbar('Erreur', error),
+    );
+    if (_voteCandidats != null) {
+      voteCandidats.value = _voteCandidats;
+    }
+  }
 }

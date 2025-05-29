@@ -10,6 +10,8 @@ class VoteModel {
   final String? status;
   final String? statusColor;
   final String? logo;
+  final String uuid;
+  final String url;
 
   VoteModel({
     required this.id,
@@ -21,6 +23,8 @@ class VoteModel {
     required this.status,
     this.statusColor,
     this.logo,
+    required this.uuid,
+    required this.url,
   });
 
   factory VoteModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +38,8 @@ class VoteModel {
       status: json['status'],
       statusColor: json['status_color'],
       logo: json['logo'],
+      uuid: json['uuid'],
+      url: json['url'],
     );
   }
   Color get statusDisplayColor => Color(int.parse(statusColor ?? "0xffffff"));

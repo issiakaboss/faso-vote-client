@@ -1,4 +1,5 @@
 // home_view.dart
+import 'package:faso_vote_client/app/data/models/statistic.dart';
 import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,6 @@ import '../../../../themes/app_colors.dart';
 import '../controllers/home_controller.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_card.dart';
-import 'package:faso_vote_client/app/widgets/custom_popup.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 
@@ -19,21 +19,39 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: maxContentWidth),
               child: Obx(
                 () => Column(
                   children: [
-                    const CircleAvatar(
-                      radius: 32,
-                      backgroundImage: AssetImage('assets/images/logo.png'),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.network(
+                        width: 100,
+                        height: 100,
+                        controller.voteCandidats.value?.vote.logo ?? "",
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(80),
+                              ),
+                              child: const Icon(Icons.broken_image, size: 25),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 16),
-                    const CustomText(
-                      text: "Vote pour le ministre de commerce",
-                      style: TextStyle(
+                    CustomText(
+                      text: controller.voteCandidats.value?.vote.title ?? "",
+                      overflow: TextOverflow.visible,
+                      style: const TextStyle(
                         fontSize: 22,
                         color: AppColors.title,
                         fontWeight: FontWeight.bold,
@@ -41,11 +59,13 @@ class HomeView extends GetView<HomeController> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    const CustomText(
-                      text:
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
-                      textAlign: TextAlign.center,
+                    CustomText(
+                      text: controller.voteCandidats.value?.vote.description ??
+                          "",
+                      overflow: TextOverflow.visible,
+                      style:
+                          const TextStyle(fontSize: 14, color: Colors.black54),
+                      textAlign: TextAlign.justify,
                     ),
                     const SizedBox(height: 20),
                     _buildTabBar(),
@@ -56,22 +76,7 @@ class HomeView extends GetView<HomeController> {
                         title: controller.selectedTab.value == 0
                             ? LocaleKeys.list_des_candidats.tr
                             : LocaleKeys.resultat_des_votes.tr,
-                        bouton: controller.selectedTab.value == 1
-                            ? MainCard(
-                                cardWidth: Get.width,
-                                cardColor: Colors.green.withOpacity(0.1),
-                                cardHeight: 35,
-                                borderColor: Colors.transparent,
-                                child: const Center(
-                                  child: Text(
-                                    '288 Votes',
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              )
-                            : null,
+                        selectedTabIndex: controller.selectedTab.value,
                       ),
                     ),
                   ],
@@ -133,7 +138,8 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _buildCandidatesSection({required String title, Widget? bouton}) {
+  Widget _buildCandidatesSection(
+      {required String title, required int selectedTabIndex}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -156,16 +162,20 @@ class HomeView extends GetView<HomeController> {
             final cardWidth =
                 (constraints.maxWidth - (columnCount - 1) * spacing) /
                     columnCount;
-
+            StatisticModel? statistic =
+                controller.voteCandidats.value?.statistic;
             return Wrap(
               spacing: spacing,
               runSpacing: spacing,
               children: [
-                resultCard("8000", LocaleKeys.votes_total.tr, Colors.black,
+                resultCard(statistic?.total.toString() ?? '',
+                    LocaleKeys.votes_total.tr, Colors.black,
                     width: cardWidth),
-                resultCard("4000", LocaleKeys.ayant_vote.tr, Colors.green,
+                resultCard(statistic?.voted.toString() ?? '',
+                    LocaleKeys.ayant_vote.tr, Colors.green,
                     width: cardWidth),
-                resultCard("4000", LocaleKeys.non_vote.tr, Colors.red,
+                resultCard(statistic?.invalid.toString() ?? '',
+                    LocaleKeys.non_vote.tr, Colors.red,
                     width: cardWidth),
               ],
             );
@@ -184,85 +194,98 @@ class HomeView extends GetView<HomeController> {
             double spacing = 16;
             double cardWidth =
                 (maxWidth - ((columnCount - 1) * spacing)) / columnCount;
-            return Wrap(
-              spacing: spacing,
-              runSpacing: spacing,
-              children: controller.candidates.map((candidate) {
-                return MainCard(
-                  padding: const EdgeInsets.all(12),
-                  cardWidth: cardWidth,
-                  cardHeight: 280,
-                  cardColor: Colors.white,
-                  borderWidth: 0.5,
-                  borderColor: Colors.grey.shade200,
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image.network(
-                          candidate.photoUrl.toString(),
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.person,
-                                  size: 80, color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      CustomText(
-                        text: candidate.fullName,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      CustomText(
-                        text: candidate.etablissement,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      CustomText(
-                        overflow: TextOverflow.visible,
-                        text: candidate.theme ?? "",
-                        color: Colors.grey,
-                        style: const TextStyle(
-                          fontSize: 12,
-                        ),
-                      ),
-                      const Spacer(),
-                      bouton ??
-                          CustomButton.primaryButton(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 0),
-                            mainAxisSize: MainAxisSize.max,
-                            onPressed: () {
-                              showDialog(
-                                context: Get.context!,
-                                builder: (context) {
-                                  return ConfirmationPopup(
-                                    onCancel: () {
-                                      Get.back();
-                                    },
-                                    onConfirm: () {
-                                      Get.toNamed(Routes.CANAL_VOTE);
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                            buttonTitle: LocaleKeys.voter.tr,
+            return Obx(() {
+              final voteCandidats = controller.voteCandidats.value;
+              return voteCandidats != null
+                  ? Wrap(
+                      spacing: spacing,
+                      runSpacing: spacing,
+                      children: voteCandidats.candidats.map((candidate) {
+                        return MainCard(
+                          padding: const EdgeInsets.all(12),
+                          cardWidth: cardWidth,
+                          cardHeight: 280,
+                          cardColor: Colors.white,
+                          borderWidth: 0.5,
+                          borderColor: Colors.grey.shade200,
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.network(
+                                  candidate.photoUrl.toString(),
+                                  height: 80,
+                                  width: 80,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(Icons.person,
+                                          size: 80, color: Colors.grey),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              CustomText(
+                                text: candidate.fullName,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              CustomText(
+                                text: candidate.etablissement,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              selectedTabIndex == 0
+                                  ? CustomText(
+                                      overflow: TextOverflow.visible,
+                                      text: candidate.theme ?? "",
+                                      color: Colors.grey,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                              const Spacer(),
+                              selectedTabIndex == 1
+                                  ? MainCard(
+                                      cardWidth: Get.width,
+                                      cardColor: Colors.green.withOpacity(0.1),
+                                      cardHeight: 35,
+                                      borderColor: Colors.transparent,
+                                      child: Center(
+                                        child: Text(
+                                          "${candidate.voix.toString()} voix",
+                                          style: const TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  : CustomButton.primaryButton(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 0),
+                                      mainAxisSize: MainAxisSize.max,
+                                      onPressed: () {
+                                        Get.toNamed(Routes.CANAL_VOTE,
+                                            arguments: {
+                                              'voteId': voteCandidats.vote.id,
+                                              'candidateId': candidate.id
+                                            });
+                                      },
+                                      buttonTitle: LocaleKeys.voter.tr,
+                                    ),
+                            ],
                           ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            );
+                        );
+                      }).toList(),
+                    )
+                  : const SizedBox.shrink();
+            });
           },
         )
       ],

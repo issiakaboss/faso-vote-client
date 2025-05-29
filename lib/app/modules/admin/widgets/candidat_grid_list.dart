@@ -3,8 +3,6 @@ import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../utils/helpers/responsive_helper.dart';
 import '../../../widgets/custom_button.dart';
 

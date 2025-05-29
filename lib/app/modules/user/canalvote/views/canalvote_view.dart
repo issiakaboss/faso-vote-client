@@ -1,18 +1,21 @@
+import 'package:faso_vote_client/app/modules/user/canalvote/views/finalyse_vote_view.dart';
+import 'package:faso_vote_client/app/modules/user/canalvote/views/otp_view.dart';
+import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:faso_vote_client/app/modules/user/canalvote/views/phone_textfield.dart';
-import 'package:faso_vote_client/app/routes/app_pages.dart';
+import 'package:faso_vote_client/app/widgets/phone_textfield.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import '../controllers/canalvote_controller.dart';
 
 class CanalvoteView extends GetView<CanalvoteController> {
-  const CanalvoteView({super.key});
-
+  CanalvoteView({super.key});
+  Map<String, dynamic>? voteCandidatData = Get.arguments;
   @override
   Widget build(BuildContext context) {
+    print("Vote data 1 $voteCandidatData");
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -66,7 +69,10 @@ class CanalvoteView extends GetView<CanalvoteController> {
                       height: 45,
                       child: CustomButton.primaryButton(
                           onPressed: () {
-                            Get.toNamed(Routes.OTPPAGE);
+                            if (voteCandidatData != null) {
+                              Get.to(
+                                  OtpView(voteCandidatData: voteCandidatData!));
+                            }
                           },
                           buttonTitle: LocaleKeys.continue_title.tr),
                     ),
@@ -85,7 +91,10 @@ class CanalvoteView extends GetView<CanalvoteController> {
                       height: 45,
                       child: CustomButton.primaryButton(
                         onPressed: () {
-                          // Implémente l'auth Google ici
+                          if (voteCandidatData != null) {
+                            Get.to(() => FinalyseVoteView(
+                                voteCandidatData: voteCandidatData!));
+                          }
                         },
                         buttonTitle: LocaleKeys.continue_google.tr,
                         prefix: Image.asset(
@@ -97,6 +106,22 @@ class CanalvoteView extends GetView<CanalvoteController> {
                           color: AppColors.title,
                           fontWeight: FontWeight.w500,
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: 35),
+                    CustomButton.secondaryButton(
+                      mainAxisSize: MainAxisSize.min,
+                      onPressed: () {
+                        if (voteCandidatData != null) {
+                          Get.offAllNamed(
+                              '${Routes.vote}/${voteCandidatData!['voteId']}');
+                        }
+                      },
+                      buttonTitle: LocaleKeys.buttons_quit.tr,
+                      prefix: const Icon(Icons.close),
+                      textStyle: const TextStyle(
+                        color: AppColors.title,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

@@ -11,63 +11,75 @@ import 'package:get/get.dart';
 import '../controllers/vote_detail_controller.dart';
 
 class VoteDetailView extends GetView<VoteDetailController> {
-  VoteDetailView({super.key});
   final VoteModel? selectedVote = Get.arguments;
   final List<String> tabs = ['Candidats', 'Résultats'];
+  VoteDetailView({super.key}) {
+    if (selectedVote != null) {
+      controller.loadVoteCandidats(voteId: selectedVote!.id.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
-      child: Scaffold(
-        key: controller.scaffoldKey,
-        endDrawer: Obx(() => controller.currentEndDrawer.value),
-        appBar: AppBar(
-          leading: BackButton(
-            onPressed: () => Get.offNamed(AppPages.DASHBOARD),
-          ),
-          centerTitle: false,
-          title: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.5, color: Colors.grey),
-                  borderRadius: BorderRadius.circular(7.0),
+      child: Obx(() {
+        var voteCandidats = controller.voteCandidats.value;
+        return Scaffold(
+          key: controller.scaffoldKey,
+          endDrawer: Obx(() => controller.currentEndDrawer.value),
+          appBar: AppBar(
+            leading: BackButton(
+              onPressed: () => Get.offNamed(AppPages.DASHBOARD),
+            ),
+            centerTitle: false,
+            title: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  child: buildHotelLogo(voteCandidats?.vote.logo),
                 ),
-                child: buildHotelLogo(null),
+                const SizedBox(width: 20),
+                CustomText(
+                  text: voteCandidats?.vote.title ?? '',
+                  style: AppTextStyles.heading3(),
+                ),
+              ],
+            ),
+            actions: [Container()],
+            bottom: TabBar(
+              tabs: tabs.map((tab) => Tab(text: tab)).toList(),
+              indicatorColor: AppColors.primary.withOpacity(0.6),
+              labelColor: AppColors.primary,
+              unselectedLabelColor: Colors.grey,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              CandidatsView(
+                voteId: selectedVote?.id,
+                candidats: voteCandidats?.candidats ?? [],
+                onAddTap: () {
+                  controller.displayAddCandidatView(
+                      voteId: selectedVote?.id ?? 0);
+                },
               ),
-              const SizedBox(width: 20),
-              CustomText(
-                text: selectedVote?.title ?? '',
-                style: AppTextStyles.heading3(),
+              ResultsView(
+                candidats: voteCandidats?.candidats,
               ),
             ],
           ),
-          actions: [Container()],
-          bottom: TabBar(
-            tabs: tabs.map((tab) => Tab(text: tab)).toList(),
-            indicatorColor: AppColors.primary.withOpacity(0.6),
-            labelColor: AppColors.primary,
-            unselectedLabelColor: Colors.grey,
-            indicatorSize: TabBarIndicatorSize.label,
-            labelStyle:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-          ),
-        ),
-        body: TabBarView(
-          children: [
-            CandidatsView(
-              voteId: selectedVote?.id,
-              onAddTap: () {
-                controller.displayAddCandidatView(
-                    voteId: selectedVote?.id ?? 0);
-              },
-            ),
-            ResultsView(),
-          ],
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -86,6 +98,7 @@ class VoteDetailView extends GetView<VoteDetailController> {
 
     return Image.network(
       imageUrl,
+      alignment: Alignment.center,
       fit: BoxFit.cover,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;

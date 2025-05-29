@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../../config/env.dart';
+import '../../data/models/token.dart';
 import 'exception.dart';
 
 class ApiClient {
   static String baseUrl = Env.apiUrl;
 
   // Headers with or without authentication
-  static Map<String, String> headers({String? token, bool auth = false}) {
-    token = '3RsOxSU2byZe8209aEW2j';
+  static Map<String, String> headers({bool auth = false}) {
+    String token = Token.getAuthToken();
     Map<String, String> header = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',

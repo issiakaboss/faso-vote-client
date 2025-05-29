@@ -1,4 +1,4 @@
-import 'package:faso_vote_client/app/common/controllers/base_controller.dart';
+import 'package:faso_vote_client/app/data/providers/base_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:faso_vote_client/app/data/models/phone.dart';
 import 'package:faso_vote_client/app/data/models/token.dart';
@@ -6,19 +6,26 @@ import 'package:faso_vote_client/app/data/models/user.dart';
 import 'package:faso_vote_client/app/data/providers/api_provider.dart';
 import 'package:faso_vote_client/app/utils/enums/api_routes.dart';
 import 'package:faso_vote_client/app/utils/helpers/dialog_helper.dart';
+import 'package:get/get.dart';
+import '../../core/api/exception.dart';
+import '../../routes/app_pages.dart';
 
-class AuthProvider with BaseController {
+class AuthProvider with BaseProvider {
   Future<User?> login({
-    required String phone,
-    required String password,
-    ValueSetter? error,
+    required Map<String, String> data,
+    ValueSetter? onError,
   }) async {
     try {
       return await ApiProvider.post(
         auth: false,
         apiURL: ApiRoutes.login.path,
-        data: {'phone': phone, 'password': password},
-      ).catchError(handleError).then((response) {
+        data: data,
+      ).catchError((error) {
+       
+        if (onError != null) {
+          onError((error as ApiException).message);
+        }
+      }).then((response) {
         if (response != null) {
           Token.saveAuthToken(response['token']);
           User user = User.fromJson(response['data']);
@@ -28,9 +35,36 @@ class AuthProvider with BaseController {
         return null;
       });
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Login error: $e");
+      if (onError != null) {
+        onError(e);
+      }
       return null;
     }
+  }
+
+  Future<bool> logout({
+    ValueSetter? onError,
+  }) async {
+    showLoading();
+    return await ApiProvider.post(
+      auth: true,
+      apiURL: ApiRoutes.logout.path,
+      data: {},
+    ).catchError((error) {
+      hideLoading();
+      if (onError != null) {
+        onError((error as ApiException).message);
+      }
+    }).then((value) {
+      hideLoading();
+      if (value != null) {
+        Token.clearAuthToken();
+        User.clearUser();
+        Get.offAllNamed(AppPages.AUTH);
+        return true;
+      }
+      return false;
+    });
   }
 
   Future<Phone?> signUp({
@@ -60,82 +94,6 @@ class AuthProvider with BaseController {
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "Sign-up error: $e");
       return null;
-    }
-  }
-
-  Future<bool> storeSecret({
-    required String secret,
-    ValueSetter? error,
-  }) async {
-    try {
-      return await ApiProvider.post(
-        auth: true,
-        apiURL: ApiRoutes.storeSecret.path,
-        data: {'secret': secret},
-      ).catchError(handleError).then((response) {
-        if (response != null) {
-          return true;
-        }
-        return false;
-      });
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Store secret error: $e");
-      return false;
-    }
-  }
-
-  Future<Phone?> storeNewPhone({required String phoneNumber}) async {
-    try {
-      return await ApiProvider.post(
-        auth: true,
-        apiURL: ApiRoutes.storePhone.path,
-        data: {"number": phoneNumber},
-      ).catchError(handleError).then((response) {
-        if (response != null) {
-          return Phone.fromJson(response['data']);
-        }
-        return null;
-      });
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Store phone error: $e");
-      return null;
-    }
-  }
-
-  Future<bool> removePhone({required int phoneId}) async {
-    try {
-      return await ApiProvider.delete(
-        auth: true,
-        apiURL: ApiRoutes.removePhone.format({'phone': phoneId.toString()}),
-      ).catchError(handleError).then((response) {
-        if (response != null) {
-          return true;
-        }
-        return false;
-      });
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "remove phone error: $e");
-      return false;
-    }
-  }
-
-  
-
-  Future<bool> logout() async {
-    try {
-      return await ApiProvider.post(
-        auth: true,
-        apiURL: ApiRoutes.logout.path,
-        data: {},
-      ).catchError(handleError).then((response) {
-        if (response != null) {
-          return true;
-        }
-        return false;
-      });
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Logout error: $e");
-      return false;
     }
   }
 

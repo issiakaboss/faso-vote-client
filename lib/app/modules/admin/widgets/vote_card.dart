@@ -3,6 +3,7 @@ import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
+import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,11 +12,19 @@ class VoteCard extends StatelessWidget {
   final void Function(VoteModel vote)? onEditTap;
   final void Function(VoteModel vote)? onDeleteTap;
   final void Function(VoteModel vote)? onBlockTap;
+  final void Function(VoteModel vote)? onUnBlockTap;
+  final void Function(VoteModel vote)? onShareTap;
+  final void Function(VoteModel vote)? onCopyTap;
+  final void Function(VoteModel vote)? onResutlTap;
   const VoteCard({
     required this.vote,
     this.onDeleteTap,
     this.onEditTap,
     this.onBlockTap,
+    this.onUnBlockTap,
+    this.onCopyTap,
+    this.onShareTap,
+    this.onResutlTap,
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +37,7 @@ class VoteCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -57,6 +66,36 @@ class VoteCard extends StatelessWidget {
                     );
                   },
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                children: [
+                  Tooltip(
+                    padding: const EdgeInsets.all(10.0),
+                    richMessage: TextSpan(
+                      text: LocaleKeys.description.tr,
+                      children: [
+                        TextSpan(
+                            text: vote.description,
+                            style: AppTextStyles.bodyText3().copyWith(
+                              overflow: TextOverflow.visible,
+                              color: Colors.white,
+                            )),
+                      ],
+                    ),
+                    child: CustomText(
+                      text: vote.description!.length > 30
+                          ? vote.description
+                                  ?.substring(0, 30)
+                                  .padRight(33, '.') ??
+                              ''
+                          : vote.description ?? "",
+                      style: AppTextStyles.bodyText2(),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 8),
@@ -118,10 +157,11 @@ class VoteCard extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(top: 2.0),
               child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
                 spacing: 10,
                 runSpacing: 10,
                 children: [
@@ -129,7 +169,7 @@ class VoteCard extends StatelessWidget {
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 140),
                       child: CustomButton.outlineButton(
-                          onPressed: () {},
+                          onPressed: () => onUnBlockTap?.call(vote),
                           buttonTitle: "Débloquer",
                           fontSize: 12,
                           borderRadius: 50.0,
@@ -190,16 +230,46 @@ class VoteCard extends StatelessWidget {
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 140),
                     child: CustomButton.outlineButton(
-                        onPressed: () {},
-                        buttonTitle: "Résultats",
+                        onPressed: () => onResutlTap?.call(vote),
+                        buttonTitle: "Détails",
                         fontSize: 12,
                         borderRadius: 50.0,
-                        borderColor: Colors.grey,
-                        forgroundColor: Colors.black,
+                        borderColor: Colors.blueAccent,
+                        forgroundColor: Colors.blueAccent,
                         prefix: const Icon(
                           Icons.visibility,
                           size: 12.0,
-                          color: Colors.black,
+                          color: Colors.blueAccent,
+                        )),
+                  ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 130),
+                    child: CustomButton.outlineButton(
+                        onPressed: () => onShareTap?.call(vote),
+                        buttonTitle: "Partager lien",
+                        fontSize: 12,
+                        borderRadius: 50.0,
+                        borderColor: Colors.grey,
+                        forgroundColor: Colors.blue,
+                        prefix: const Icon(
+                          Icons.share,
+                          size: 12.0,
+                          color: Colors.blue,
+                        )),
+                  ),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 120),
+                    child: CustomButton.outlineButton(
+                        onPressed: () => onCopyTap?.call(vote),
+                        buttonTitle: "Copier lien",
+                        fontSize: 12,
+                        borderRadius: 50.0,
+                        borderColor: Colors.grey,
+                        forgroundColor: Colors.grey,
+                        prefix: const Icon(
+                          Icons.copy,
+                          size: 12.0,
+                          color: Colors.grey,
                         )),
                   ),
                 ],

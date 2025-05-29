@@ -7,6 +7,7 @@ import '../../core/api/exception.dart';
 import '../../utils/enums/api_routes.dart';
 import '../../utils/helpers/image_helper.dart';
 import '../models/vote.dart';
+import '../models/vote_candidats.dart';
 import 'api_provider.dart';
 
 class VoteProvider with BaseProvider {
@@ -30,6 +31,54 @@ class VoteProvider with BaseProvider {
     } catch (e) {
       if (onError != null) onError('Erreur inattendue: ${e.toString()}');
       return [];
+    }
+  }
+
+  Future<VoteCandidats?> fetchVoteCandidats(
+      {required String voteId, ValueSetter<String>? onError}) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.voteCandidats.format({"vote": voteId}),
+      );
+      if (response != null) {
+        print("response data $response");
+        final VoteCandidats voteCandidats =
+            VoteCandidats.fromJson(response['data']);
+
+        return voteCandidats;
+      }
+      return null;
+    } on ApiException catch (e) {
+      if (onError != null) onError(e.message ?? '');
+      return null;
+    } catch (e) {
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<VoteCandidats?> fetchGuestVoteCandidats(
+      {required String voteId, ValueSetter<String>? onError}) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.gestVoteCandidats.format({"vote": voteId}),
+      );
+      if (response != null) {
+        print(" gest response data $response");
+        final VoteCandidats voteCandidats =
+            VoteCandidats.fromJson(response['data']);
+
+        return voteCandidats;
+      }
+      return null;
+    } on ApiException catch (e) {
+      if (onError != null) onError(e.message ?? '');
+      return null;
+    } catch (e) {
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return null;
     }
   }
 
@@ -156,7 +205,7 @@ class VoteProvider with BaseProvider {
     }
   }
 
-   Future<bool> deleteVote({
+  Future<bool> deleteVote({
     required String voteId,
     ValueSetter<String>? onError,
   }) async {

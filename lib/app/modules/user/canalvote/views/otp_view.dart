@@ -1,18 +1,21 @@
+import 'package:faso_vote_client/app/modules/user/canalvote/controllers/canalvote_controller.dart';
+import 'package:faso_vote_client/app/modules/user/canalvote/views/finalyse_vote_view.dart';
 import 'package:faso_vote_client/app/themes/app_colors.dart';
 import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:faso_vote_client/app/widgets/otp_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/otppage_controller.dart';
-
-class OtppageView extends GetView<OtppageController> {
-  const OtppageView({super.key});
+class OtpView extends GetView<CanalvoteController> {
+  Map<String, dynamic> voteCandidatData;
+  OtpView({super.key, required this.voteCandidatData});
 
   @override
   Widget build(BuildContext context) {
+    print("Vote data 2 otp $voteCandidatData");
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -69,7 +72,8 @@ class OtppageView extends GetView<OtppageController> {
                     ),
                     const SizedBox(height: 30),
                     OTPFieldWidget(
-                      otpController: TextEditingController(),
+                      otpController: controller.otpController,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       length: 6,
                       onCompleted: (p0) {},
                     ),
@@ -100,8 +104,11 @@ class OtppageView extends GetView<OtppageController> {
                       width: double.infinity,
                       height: 45,
                       child: CustomButton.primaryButton(
-                        onPressed: () {},
-                        buttonTitle: "Confirmer mon vote",
+                        onPressed: () {
+                          Get.to(() => FinalyseVoteView(
+                              voteCandidatData: voteCandidatData));
+                        },
+                        buttonTitle: "Continuer",
                       ),
                     ),
                   ],

@@ -11,7 +11,6 @@ import '../views/adding_candidat_view.dart';
 class CandidatsController extends GetxController {
   VoteDetailController _voteDetailController = Get.find<VoteDetailController>();
   CandidatProvider _candidatProvider = CandidatProvider();
-  RxList<Candidat> candidates = RxList([]);
   final RxBool isEditMode = false.obs;
   final RxnInt candidatId = RxnInt(null);
   final RxnInt voteId = RxnInt(null);
@@ -21,9 +20,6 @@ class CandidatsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (candidates.isEmpty) {
-      loadCandidatesData();
-    }
   }
 
   @override
@@ -80,18 +76,6 @@ class CandidatsController extends GetxController {
     form.formKey.currentState?.reset();
   }
 
-  Future<void> loadCandidatesData() async {
-    if (voteId.value != null) {
-      final candidateList = await _candidatProvider.fetchCandidats(
-        voteId: voteId.value!,
-        onError: (error) => Get.snackbar('Erreur', error),
-      );
-      if (candidateList != null) {
-        candidates.value = candidateList;
-      }
-    }
-  }
-
   void saveCandidatsData({required int voteId}) async {
     if (!form.formKey.currentState!.validate()) return;
 
@@ -120,7 +104,7 @@ class CandidatsController extends GetxController {
     }
 
     if (response != null) {
-      loadCandidatesData();
+      _voteDetailController.loadVoteCandidats(voteId: voteId.toString());
       _voteDetailController.closeAddCandidatView();
       resetCandidateForm();
       DialogHelper.showSuccessSnackbar(
@@ -137,9 +121,9 @@ class CandidatsController extends GetxController {
           candidatId: candidatId.toString(),
         );
         if (success) {
-          candidates.removeWhere((hotel) => hotel.id == candidatId);
-
-          loadCandidatesData();
+          _voteDetailController.voteCandidats.value?.candidats
+              .removeWhere((candidat) => candidat.id == candidatId);
+          _voteDetailController.voteCandidats.refresh();
           DialogHelper.showSuccessSnackbar(
               message: 'Candidat deleted successfully');
         } else {

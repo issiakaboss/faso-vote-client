@@ -59,12 +59,17 @@ class LocaleKeys {
   static const add_logo = 'add_logo';
   static const description = 'description';
   static const enter_description = 'enter_description';
+  static const copy = 'copy';
+  static const link_copied = 'link_copied';
+  static const login_title = 'login_title';
+  static const enter_email_address = 'enter_email_address';
   static const buttons_no = 'buttons_no';
   static const buttons_yes = 'buttons_yes';
   static const buttons_continuous = 'buttons_continuous';
   static const buttons_save = 'buttons_save';
   static const buttons_cancel = 'buttons_cancel';
   static const buttons_close = 'buttons_close';
+  static const buttons_quit = 'buttons_quit';
   static const buttons_update = 'buttons_update';
   static const buttons_confirm = 'buttons_confirm';
   static const buttons_verify_now = 'buttons_verify_now';
@@ -146,12 +151,17 @@ class Locales {
     'add_logo': 'Add a logo',
     'description': 'Description',
     'enter_description': 'Add description to help electors',
+    'copy': 'Copy',
+    'link_copied': 'Link successfull copied',
+    'login_title': 'Authenticating',
+    'enter_email_address': 'Enter your email address',
     'buttons_no': 'No',
     'buttons_yes': 'Yes',
     'buttons_continuous': 'Continuous',
     'buttons_save': 'Save',
     'buttons_cancel': 'Cancel',
     'buttons_close': 'Close',
+    'buttons_quit': 'Quit',
     'buttons_update': 'Update',
     'buttons_confirm': 'Confirm',
     'buttons_verify_now': 'Verify now',
@@ -232,13 +242,17 @@ class Locales {
     'phonenumber': 'Numéro de téléphone',
     'msg_popup_candidat':
         'Êtes-vous sûr(e) de votre choix ? Il est important de savoir que cette opération, une fois votée, ne pourra pas être annulée.',
+    'copy': 'Copier',
+    'link_copied': 'Lien copié avec succes',
+    'login_title': 'Authentication',
+    'enter_email_address': 'Entrer votre address email',
     'buttons_no': 'Non',
     'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',
     'buttons_confirm': 'Confirmer',
     'buttons_save': 'Enrégistrer',
     'buttons_cancel': 'Annuler',
-    'buttons_close': 'Fermer',
+    'buttons_quit': 'Quitter',
     'buttons_update': 'Mettre à jour',
     'buttons_verify_now': 'Verifier maintenant',
     'buttons_verifying': 'En cours de vérification.....',
@@ -247,6 +261,5 @@ class Locales {
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',
     'buttons_logout': 'Déconnexion',
-    'buttons_new_candidat': 'Nouvel Candidat',
   };
 }
