@@ -8,6 +8,7 @@ import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import '../../../../utils/helpers/responsive_helper.dart';
 import '../controllers/vote_detail_controller.dart';
 
 class VoteDetailView extends GetView<VoteDetailController> {
@@ -21,6 +22,7 @@ class VoteDetailView extends GetView<VoteDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = ResponsiveHelper(context);
     return DefaultTabController(
       length: tabs.length,
       child: Obx(() {
@@ -33,24 +35,30 @@ class VoteDetailView extends GetView<VoteDetailController> {
               onPressed: () => Get.offNamed(AppPages.DASHBOARD),
             ),
             centerTitle: false,
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
+            title: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: buildHotelLogo(voteCandidats?.vote.logo),
                   ),
-                  child: buildHotelLogo(voteCandidats?.vote.logo),
-                ),
-                const SizedBox(width: 20),
-                CustomText(
-                  text: voteCandidats?.vote.title ?? '',
-                  style: AppTextStyles.heading3(),
-                ),
-              ],
+                  const SizedBox(width: 20),
+                  CustomText(
+                    text: voteCandidats?.vote.title ?? '',
+                    style: AppTextStyles.heading3()
+                        .copyWith(fontSize: responsive.isMobile ? 18 : null),
+                  ),
+                ],
+              ),
             ),
             actions: [Container()],
             bottom: TabBar(

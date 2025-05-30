@@ -68,8 +68,10 @@
   "copy":"Copier",
   "link_copied":"Lien copié avec succes",
 
-   "login_title": "Authentication",
-     "enter_email_address":"Entrer votre address email",
+  "login_title": "Authentication",
+  "enter_email_address":"Entrer votre address email",
+  "admin_title":"Administration",
+  
   "buttons": {
     "no": "Non",
     "yes": "Oui",

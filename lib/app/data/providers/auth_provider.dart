@@ -9,6 +9,7 @@ import 'package:faso_vote_client/app/utils/helpers/dialog_helper.dart';
 import 'package:get/get.dart';
 import '../../core/api/exception.dart';
 import '../../routes/app_pages.dart';
+import 'dart:html' as html;
 
 class AuthProvider with BaseProvider {
   Future<User?> login({
@@ -117,23 +118,56 @@ class AuthProvider with BaseProvider {
     }
   }
 
-  Future<bool> googleAuth() async {
+  Future<void> handleGoogleLogin() async {
     try {
-      return await ApiProvider.get(
+      final response = await ApiProvider.get(
         auth: true,
         apiURL: ApiRoutes.googleAuth.path,
       ).catchError(handleError).then((response) {
         if (response != null) {
           print("response $response");
-          return true;
+          final redirectUrl = response['data']['url'];
+          // html.window.open(redirectUrl, "_self");
+
+          html.window.open(redirectUrl, 'google_auth', 'width=600,height=600');
+
+          html.window.onMessage.listen((event) {
+            final data = event.data;
+            if (data is Map && data['type'] == 'google-auth-success') {
+              final email = data['email'];
+              final token = data['token'];
+
+              print('✅ Email: $email');
+              print('🔐 Token: $token');
+
+              // Tu peux stocker le token dans GetStorage / SharedPreferences
+              // et rediriger vers FinalyseVoteView
+              // Get.to(() => FinalyseVoteView(email: email));
+            }
+          });
         }
-        return false;
       });
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
-      return false;
+      print("Erreur pendant la redirection Google: $e");
     }
   }
+  // Future<bool> googleAuth() async {
+  //   try {
+  //     return await ApiProvider.get(
+  //       auth: true,
+  //       apiURL: ApiRoutes.googleAuth.path,
+  //     ).catchError(handleError).then((response) {
+  //       if (response != null) {
+  //         print("response $response");
+  //         return true;
+  //       }
+  //       return false;
+  //     });
+  //   } catch (e) {
+  //     DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
+  //     return false;
+  //   }
+  // }
 
   Future<bool> resendOtp({required int phoneId, required bool isPhone}) async {
     try {

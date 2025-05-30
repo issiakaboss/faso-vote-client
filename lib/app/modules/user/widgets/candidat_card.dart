@@ -154,7 +154,7 @@ class CandidateCard extends StatelessWidget {
                     Get.toNamed(
                       AppPages.CANAL_VOTE,
                       arguments: {
-                        'candidatId': candidate.id,
+                        'candidat': candidate,
                         'voteUuid': voteUuid,
                       },
                     );

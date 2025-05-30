@@ -18,6 +18,7 @@ import 'app/utils/services/sroll_behavior.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   setUrlStrategy(PathUrlStrategy());
 
   SystemChrome.setSystemUIOverlayStyle(

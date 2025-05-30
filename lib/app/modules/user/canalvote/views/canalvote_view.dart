@@ -16,7 +16,6 @@ class CanalvoteView extends GetView<CanalvoteController> {
   Map<String, dynamic>? voteCandidatData = Get.arguments;
   @override
   Widget build(BuildContext context) {
-    print("Vote data 1 $voteCandidatData");
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -38,6 +37,23 @@ class CanalvoteView extends GetView<CanalvoteController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                         Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
+                child: controller.errorMessage.value != null
+                    ? Container(
+                        width: context.width / 3,
+                        height: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: AppColors.error.withOpacity(0.2)),
+                        child: CustomText(
+                          text: controller.errorMessage.value!,
+                          overflow: TextOverflow.visible,
+                          color: AppColors.error,
+                        ),
+                      )
+                    : null,
+              ),
                       CustomText(
                         text: LocaleKeys.canal_vote_title.tr,
                         style: TextStyle(
@@ -64,6 +80,9 @@ class CanalvoteView extends GetView<CanalvoteController> {
                         height: 45,
                         borderColor: AppColors.textSecondary,
                         fillColor: AppColors.secondary,
+                        onChanged: (p0) {
+                          controller.errorMessage.value=null;
+                        },
                       ),
                       const SizedBox(height: 20),
                       SizedBox(

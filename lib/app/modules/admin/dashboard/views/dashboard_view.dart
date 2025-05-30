@@ -1,4 +1,3 @@
-import 'package:faso_vote_client/app/modules/admin/widgets/toggle_vote.dart';
 import 'package:faso_vote_client/app/routes/app_pages.dart';
 import 'package:faso_vote_client/app/themes/app_text_styles.dart';
 import 'package:faso_vote_client/app/utils/constants/app_constant.dart';
@@ -50,6 +49,11 @@ class DashboardView extends GetView<DashboardController> {
                               padding: EdgeInsets.all(8.0),
                               child: Icon(Icons.logo_dev),
                             ),
+                            CustomText(
+                              text: LocaleKeys.admin_title.tr,
+                              style: AppTextStyles.heading3().copyWith(
+                                  fontSize: responsive.isMobile ? 18 : null),
+                            ),
                             Row(
                               children: [
                                 IconButton(
@@ -58,7 +62,7 @@ class DashboardView extends GetView<DashboardController> {
                                 IconButton(
                                   onPressed: () {},
                                   icon: const Icon(Icons.account_circle),
-                                  iconSize: 50,
+                                  iconSize: 35,
                                 ),
                               ],
                             ),

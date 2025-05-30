@@ -226,4 +226,19 @@ class VoteProvider with BaseProvider {
       return false;
     }
   }
+
+  Future<dynamic> validateVote(
+      {required Map<String, dynamic> validateData,
+      required String candidatId}) async {
+    final response = await ApiProvider.post(
+      auth: false,
+      apiURL:
+          ApiRoutes.validateCandidatVote.format({"candidat_id": candidatId}),
+      data: validateData,
+    ).catchError(handleError).then((response) {});
+
+    if (response!=null) {
+      print("response $response");
+    }
+  }
 }
