@@ -2,6 +2,7 @@ import 'package:faso_vote_client/app/data/models/edit_vote.dart';
 import 'package:faso_vote_client/app/data/providers/base_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../../core/api/exception.dart';
 import '../../utils/enums/api_routes.dart';
@@ -208,6 +209,10 @@ class VoteProvider with BaseProvider {
     ValueSetter<String>? onError,
   }) async {
     try {
+      if (Get.isSnackbarOpen) {
+        await Get.closeCurrentSnackbar();
+      }
+
       showLoading();
       final response = await ApiProvider.delete(
         auth: true,
@@ -227,18 +232,52 @@ class VoteProvider with BaseProvider {
     }
   }
 
+  Future<bool> toggleVoteStatus({
+    required String voteId,
+    ValueSetter<String>? onError,
+  }) async {
+    try {
+      if (Get.isSnackbarOpen) {
+        await Get.closeCurrentSnackbar();
+      }
+
+      showLoading();
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.toggleVoteStatus.format({'vote': voteId}),
+      ).catchError(handleError);
+      hideLoading();
+      return response != null;
+    } on ApiException catch (e) {
+      hideLoading();
+      if (onError != null) onError(e.message ?? '');
+      return false;
+    } catch (e) {
+      hideLoading();
+      debugPrint('Erreur inattendue: ${e.toString()}');
+      if (onError != null) onError('Erreur inattendue: ${e.toString()}');
+      return false;
+    }
+  }
+
   Future<dynamic> validateVote(
       {required Map<String, dynamic> validateData,
       required String candidatId}) async {
-    final response = await ApiProvider.post(
-      auth: false,
-      apiURL:
-          ApiRoutes.validateCandidatVote.format({"candidat_id": candidatId}),
-      data: validateData,
-    ).catchError(handleError).then((response) {});
-
-    if (response!=null) {
-      print("response $response");
+    try {
+      final response = await ApiProvider.post(
+        auth: false,
+        apiURL:
+            ApiRoutes.validateCandidatVote.format({"candidat_id": candidatId}),
+        data: validateData,
+      ).catchError(handleError);
+      if (response != null) {
+        return response;
+      }
+      return null;
+    } catch (e) {
+      hideLoading();
+      debugPrint('Erreur inattendue: ${e.toString()}');
+      return null;
     }
   }
 }

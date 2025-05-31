@@ -6,7 +6,7 @@ import 'package:faso_vote_client/app/widgets/custom_button.dart';
 import 'package:faso_vote_client/app/widgets/custom_text.dart';
 import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
-
+import 'package:share_plus/share_plus.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/helpers/responsive_helper.dart';
@@ -154,24 +154,29 @@ class DashboardView extends GetView<DashboardController> {
                                   controller.loadVotes();
                                 }
                               },
-                              onBlockTap: (vote) {},
+                              onBlockTap: (vote) {
+                                controller.toggleVote(voteId: vote.id);
+                              },
                               onDeleteTap: (vote) {
                                 controller.deleteVote(voteId: vote.id);
                               },
                               onShareTap: (vote) {
-                                Get.toNamed('${Routes.vote}/${vote.uuid}',
-                                    preventDuplicates: false);
+                                SharePlus.instance.share(ShareParams(
+                                    text: '${vote.title} ${vote.url}'));
+                                // Get.toNamed('${Routes.vote}/${vote.uuid}',
+                                //     preventDuplicates: false);
                               },
                               onCopyTap: (vote) {
                                 Functions.copyText(text: vote.url);
                                 print("url ${vote.url}");
-                                // Get.toNamed('${Routes.vote}/${vote.uuid}');
                               },
                               onResutlTap: (vote) {
                                 Get.toNamed(AppPages.VOTE_DETAIL,
                                     arguments: vote);
                               },
-                              onUnBlockTap: (vote) {},
+                              onUnBlockTap: (vote) {
+                                controller.toggleVote(voteId: vote.id);
+                              },
                             ),
                           );
                         },

@@ -40,7 +40,7 @@ void main() async {
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         title: Env.appName,
-        initialRoute: AppPages.AUTH,
+        initialRoute: AppPages.DASHBOARD,
         initialBinding: InitialBinding(),
         getPages: AppPages.routes,
         locale: LocalizationService.to.getCurrentLocale(),

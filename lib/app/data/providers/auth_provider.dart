@@ -97,24 +97,20 @@ class AuthProvider with BaseProvider {
     }
   }
 
-  Future<bool> verifyOtp(
-      {required int phoneId,
-      required String otp,
-      required bool isPhone}) async {
+  Future<dynamic> verifyOtp({
+    required Map<String, dynamic> otpData,
+  }) async {
     try {
-      return await ApiProvider.get(
-        auth: true,
-        apiURL: ApiRoutes.verifyOtp
-            .format({'phone_id': phoneId.toString(), 'code': otp}),
+      return await ApiProvider.post(
+        auth: false,
+        apiURL: ApiRoutes.verifyOtp.path,
+        data: otpData,
       ).catchError(handleError).then((response) {
-        if (response != null) {
-          return true;
-        }
-        return false;
+        return response;
       });
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
-      return false;
+      return null;
     }
   }
 
@@ -151,38 +147,21 @@ class AuthProvider with BaseProvider {
       print("Erreur pendant la redirection Google: $e");
     }
   }
-  // Future<bool> googleAuth() async {
-  //   try {
-  //     return await ApiProvider.get(
-  //       auth: true,
-  //       apiURL: ApiRoutes.googleAuth.path,
-  //     ).catchError(handleError).then((response) {
-  //       if (response != null) {
-  //         print("response $response");
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   } catch (e) {
-  //     DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
-  //     return false;
-  //   }
-  // }
 
-  Future<bool> resendOtp({required int phoneId, required bool isPhone}) async {
+  Future<dynamic> sendOtp({required Map<String, String> phoneData}) async {
     try {
-      return await ApiProvider.get(
-        auth: true,
-        apiURL: ApiRoutes.resendOtp.format({'phone_id': phoneId.toString()}),
-      ).catchError(handleError).then((response) {
+      return await ApiProvider.post(
+              auth: false, apiURL: ApiRoutes.votePhone.path, data: phoneData)
+          .catchError(handleError)
+          .then((response) {
         if (response != null) {
-          return true;
+          return response;
         }
-        return false;
+        return null;
       });
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Resend otp error: $e");
-      return false;
+      DialogHelper.showErrorSnackbar(message: "Send otp error: $e");
+      return null;
     }
   }
 }

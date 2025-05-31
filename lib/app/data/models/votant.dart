@@ -2,11 +2,13 @@ class Votant {
   final int id;
   final int voteId;
   final String identity;
+  bool isVerified;
 
   Votant({
     required this.id,
     required this.voteId,
     required this.identity,
+    this.isVerified=false,
   });
 
   // Factory method pour convertir depuis JSON
@@ -15,6 +17,7 @@ class Votant {
       id: json['id'] as int,
       voteId: json['vote_id'] as int,
       identity: json['identity'] as String,
+      isVerified: json['is_verified']??false,
     );
   }
 
@@ -29,6 +32,6 @@ class Votant {
 
   @override
   String toString() {
-    return 'Votant(id: $id, voteId: $voteId, identity: $identity)';
+    return 'Votant(id: $id, voteId: $voteId, identity: $identity, isVerified: $isVerified)';
   }
 }

@@ -152,7 +152,8 @@ class AuthService {
     }
   }
 
-  static Future<void> signOut() async {
+  
+  static Future<void> signOutGoogle() async {
     try {
       await _googleSignIn.signOut();
       if (kIsWeb) {

@@ -33,6 +33,9 @@ class DashboardController extends GetxController {
   }
 
   void deleteVote({required int voteId}) async {
+    if (Get.isSnackbarOpen) {
+      await Get.closeCurrentSnackbar();
+    }
     DialogHelper.showConfirmationDialog(
       title: "Suppression",
       message: "Voullez-vous vraiment supprimer cette donnée?",
@@ -44,9 +47,30 @@ class DashboardController extends GetxController {
 
           loadVotes();
           DialogHelper.showSuccessSnackbar(
-              message: 'Candidat deleted successfully');
+              message: 'Vote deleted successfully');
         } else {
-          throw Exception('Failed to delete candidat');
+          throw Exception('Failed to delete vote');
+        }
+      },
+    );
+  }
+
+  void toggleVote({required int voteId}) async {
+    if (Get.isSnackbarOpen) {
+      await Get.closeCurrentSnackbar();
+    }
+    DialogHelper.showConfirmationDialog(
+      title: "Bloquage-Débloquage",
+      message: "Voullez-vous vraiment continue cette donnée?",
+      onConfirm: () async {
+        final success =
+            await _voteProvider.toggleVoteStatus(voteId: voteId.toString());
+        if (success) {
+          loadVotes();
+          DialogHelper.showSuccessSnackbar(
+              message: 'Vote status changé avec success');
+        } else {
+          throw Exception('Failed to block vote');
         }
       },
     );

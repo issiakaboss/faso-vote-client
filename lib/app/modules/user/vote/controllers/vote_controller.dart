@@ -13,9 +13,8 @@ class VoteController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final voteId = Get.parameters['id'];
+    var voteId = Get.parameters['id'];
     if (voteId != null) {
-      print("voteId $voteId");
       socketController.connectToSocket(
         voteId: voteId,
         onVoteUpdated: (int candidatId, int voix, StatisticModel newStatistic) {
