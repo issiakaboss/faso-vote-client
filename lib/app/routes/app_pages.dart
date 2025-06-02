@@ -1,3 +1,5 @@
+import 'package:faso_vote_client/app/modules/user/canalvote/views/finalyse_vote_view.dart';
+import 'package:faso_vote_client/app/modules/user/canalvote/views/otp_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/SplashScreen/bindings/splash_screen_binding.dart';
@@ -16,8 +18,8 @@ import '../modules/admin/voteDetail/bindings/vote_detail_binding.dart';
 import '../modules/admin/voteDetail/views/vote_detail_view.dart';
 import '../modules/user/canalvote/bindings/canalvote_binding.dart';
 import '../modules/user/canalvote/views/canalvote_view.dart';
-import '../modules/user/home/bindings/home_binding.dart';
-import '../modules/user/home/views/home_view.dart';
+import '../modules/user/vote/bindings/vote_binding.dart';
+import '../modules/user/vote/views/vote_view.dart';
 
 part 'app_routes.dart';
 
@@ -32,12 +34,15 @@ class AppPages {
   static const CANDIDATS = Routes.CANDIDATS;
   static const RESULTS = Routes.RESULTS;
   static const VOTE_DETAIL = Routes.VOTE_DETAIL;
+  static const CANAL_VOTE = Routes.CANAL_VOTE;
+  static const FINAL_VOTE = Routes.FINAL_VOTE;
+  static const OTP = Routes.OTP;
 
   static final routes = [
     GetPage(
       name: '/vote/:id',
-      page: () => const HomeView(),
-      binding: HomeBinding(),
+      page: () => const VoteView(),
+      binding: VoteBinding(),
     ),
     GetPage(
       name: _Paths.splashscreen,
@@ -57,6 +62,16 @@ class AppPages {
     GetPage(
       name: _Paths.CANAL_VOTE,
       page: () => CanalvoteView(),
+      binding: CanalvoteBinding(),
+    ),
+    GetPage(
+      name: _Paths.FINAL_VOTE,
+      page: () => FinalyseVoteView(),
+      binding: CanalvoteBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => OtpView(),
       binding: CanalvoteBinding(),
     ),
     GetPage(

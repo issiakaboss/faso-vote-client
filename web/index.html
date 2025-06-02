@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -21,18 +22,31 @@
   <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
+  <meta name="google-signin-client_id"
+    content="1037977832184-6sravmv32k7bfedce0lkhki1uh3qko0m.apps.googleusercontent.com">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="faso_vote_client">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <title>faso_vote_client</title>
   <link rel="manifest" href="manifest.json">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    // Load the Google API
+    function loadGoogleSignInApi() {
+      gapi.load('auth2', function () {
+        gapi.auth2.init();
+      });
+    }
+  </script>
 </head>
+
 <body>
   <script src="flutter_bootstrap.js" async></script>
 </body>
+
 </html>

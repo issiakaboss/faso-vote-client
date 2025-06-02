@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../data/providers/vote_provider.dart';
 
-class HomeController extends GetxController {
+class VoteController extends GetxController {
   SocketController socketController = Get.find<SocketController>();
   var selectedTab = 0.obs;
   Rxn<VoteCandidats> voteCandidats = Rxn<VoteCandidats>();
@@ -13,9 +13,8 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    final voteId = Get.parameters['id'];
+    var voteId = Get.parameters['id'];
     if (voteId != null) {
-      print("voteId $voteId");
       socketController.connectToSocket(
         voteId: voteId,
         onVoteUpdated: (int candidatId, int voix, StatisticModel newStatistic) {

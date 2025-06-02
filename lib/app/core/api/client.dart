@@ -25,6 +25,7 @@ class ApiClient {
     switch (response.statusCode) {
       case 200:
       case 201:
+      case 403:
         return jsonDecode(utf8.decode(response.bodyBytes));
       default:
         throw ApiException(

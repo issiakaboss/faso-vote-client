@@ -63,6 +63,7 @@ class LocaleKeys {
   static const link_copied = 'link_copied';
   static const login_title = 'login_title';
   static const enter_email_address = 'enter_email_address';
+  static const admin_title = 'admin_title';
   static const buttons_no = 'buttons_no';
   static const buttons_yes = 'buttons_yes';
   static const buttons_continuous = 'buttons_continuous';
@@ -155,6 +156,7 @@ class Locales {
     'link_copied': 'Link successfull copied',
     'login_title': 'Authenticating',
     'enter_email_address': 'Enter your email address',
+    'admin_title': 'Administration',
     'buttons_no': 'No',
     'buttons_yes': 'Yes',
     'buttons_continuous': 'Continuous',
@@ -246,6 +248,7 @@ class Locales {
     'link_copied': 'Lien copié avec succes',
     'login_title': 'Authentication',
     'enter_email_address': 'Entrer votre address email',
+    'admin_title': 'Administration',
     'buttons_no': 'Non',
     'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',

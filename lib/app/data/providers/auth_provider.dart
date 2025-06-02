@@ -9,6 +9,7 @@ import 'package:faso_vote_client/app/utils/helpers/dialog_helper.dart';
 import 'package:get/get.dart';
 import '../../core/api/exception.dart';
 import '../../routes/app_pages.dart';
+import 'dart:html' as html;
 
 class AuthProvider with BaseProvider {
   Future<User?> login({
@@ -21,7 +22,6 @@ class AuthProvider with BaseProvider {
         apiURL: ApiRoutes.login.path,
         data: data,
       ).catchError((error) {
-       
         if (onError != null) {
           onError((error as ApiException).message);
         }
@@ -97,43 +97,71 @@ class AuthProvider with BaseProvider {
     }
   }
 
-  Future<bool> verifyOtp(
-      {required int phoneId,
-      required String otp,
-      required bool isPhone}) async {
+  Future<dynamic> verifyOtp({
+    required Map<String, dynamic> otpData,
+  }) async {
     try {
-      return await ApiProvider.get(
-        auth: true,
-        isPhone: isPhone,
-        apiURL: ApiRoutes.verifyOtp
-            .format({'phone_id': phoneId.toString(), 'code': otp}),
+      return await ApiProvider.post(
+        auth: false,
+        apiURL: ApiRoutes.verifyOtp.path,
+        data: otpData,
       ).catchError(handleError).then((response) {
-        if (response != null) {
-          return true;
-        }
-        return false;
+        return response;
       });
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
-      return false;
+      return null;
     }
   }
 
-  Future<bool> resendOtp({required int phoneId, required bool isPhone}) async {
+  Future<void> handleGoogleLogin() async {
     try {
-      return await ApiProvider.get(
+      final response = await ApiProvider.get(
         auth: true,
-        isPhone: isPhone,
-        apiURL: ApiRoutes.resendOtp.format({'phone_id': phoneId.toString()}),
+        apiURL: ApiRoutes.googleAuth.path,
       ).catchError(handleError).then((response) {
         if (response != null) {
-          return true;
+          print("response $response");
+          final redirectUrl = response['data']['url'];
+          // html.window.open(redirectUrl, "_self");
+
+          html.window.open(redirectUrl, 'google_auth', 'width=600,height=600');
+
+          html.window.onMessage.listen((event) {
+            final data = event.data;
+            if (data is Map && data['type'] == 'google-auth-success') {
+              final email = data['email'];
+              final token = data['token'];
+
+              print('✅ Email: $email');
+              print('🔐 Token: $token');
+
+              // Tu peux stocker le token dans GetStorage / SharedPreferences
+              // et rediriger vers FinalyseVoteView
+              // Get.to(() => FinalyseVoteView(email: email));
+            }
+          });
         }
-        return false;
       });
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Resend otp error: $e");
-      return false;
+      print("Erreur pendant la redirection Google: $e");
+    }
+  }
+
+  Future<dynamic> sendOtp({required Map<String, String> phoneData}) async {
+    try {
+      return await ApiProvider.post(
+              auth: false, apiURL: ApiRoutes.votePhone.path, data: phoneData)
+          .catchError(handleError)
+          .then((response) {
+        if (response != null) {
+          return response;
+        }
+        return null;
+      });
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Send otp error: $e");
+      return null;
     }
   }
 }

@@ -113,6 +113,9 @@ class CandidatsController extends GetxController {
   }
 
   void deleteCandidat({required int candidatId}) async {
+    if (Get.isSnackbarOpen) {
+      await Get.closeCurrentSnackbar();
+    }
     DialogHelper.showConfirmationDialog(
       title: "Suppression",
       message: "Voullez-vous vraiment supprimer cette donnée?",

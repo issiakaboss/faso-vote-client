@@ -51,8 +51,9 @@
   "copy":"Copy",
   "link_copied":"Link successfull copied",
 
-   "login_title": "Authenticating",
-     "enter_email_address":"Enter your email address",
+  "login_title": "Authenticating",
+  "enter_email_address":"Enter your email address",
+  "admin_title":"Administration",
 
     "buttons": {
       "no": "No",

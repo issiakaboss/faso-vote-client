@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
 class PhoneTextfield {
   static Widget mainPhoneField({
     double width = double.infinity,
-    double height = 65,
+    double? height,
     String initialCountryCode = 'BF',
     String hintText = '',
     Color borderColor = Colors.blue,
@@ -19,6 +20,8 @@ class PhoneTextfield {
     void Function(String)? onCountryChanged,
     PhoneNumber? initialValue,
     TextEditingController? controller,
+    List<TextInputFormatter>? inputFormatters,
+    FormFieldValidator<PhoneNumber>? validator,
   }) {
     return SizedBox(
       width: width,
@@ -27,7 +30,9 @@ class PhoneTextfield {
         autovalidateMode: AutovalidateMode.disabled,
         controller: controller,
         keyboardType: TextInputType.number,
+        inputFormatters: inputFormatters,
         initialCountryCode: initialCountryCode,
+        
         decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
@@ -52,7 +57,13 @@ class PhoneTextfield {
             borderRadius: BorderRadius.circular(radius),
             borderSide: BorderSide(color: borderColor, width: 1),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(radius),
+            borderSide:const BorderSide(color: Colors.red, width: 1),
+          ),
+          
         ),
+        validator: validator,
         onChanged: onChanged,
         onSaved: onSaved,
         onCountryChanged: (country) {

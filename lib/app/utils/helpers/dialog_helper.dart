@@ -2,13 +2,12 @@ import 'package:faso_vote_client/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:quickalert/quickalert.dart';
 import '../../themes/app_colors.dart';
-import '../../widgets/custom_text_form_field.dart';
-import '../validators/form_validator.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class DialogHelper {
-
-    static void showLoading({String? message, bool isWeb = true}) {
+  static void showLoading({String? message, bool isWeb = true}) {
     Get.dialog(
       barrierDismissible: false,
       barrierColor: Colors.black54,
@@ -64,6 +63,7 @@ class DialogHelper {
   static void hideLoading() {
     if (Get.isDialogOpen!) Get.back();
   }
+
   // Show an error snackbar
   static void showErrorSnackbar(
       {String title = 'Error', required String message}) {
@@ -160,155 +160,20 @@ class DialogHelper {
     );
   }
 
-  // update Dialog
-  static void userupdateDialog(
-      {String? title,
-      required String cible,
-      required TextEditingController textEditingController,
-      required void Function()? onCofirm}) {
-    Get.dialog(
-      Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 12),
-            Text(
-              title ?? '',
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: textEditingController,
-                cursorColor: AppColors.primary,
-                textInputAction: TextInputAction.done,
-                autofocus: true,
-                onSubmitted: (value) {
-                  if (value.isNotEmpty) {
-                    // authController.updateUserData(value, cible);
-                  }
-                },
-              ),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text(
-                    LocaleKeys.buttons_cancel.tr,
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 225, 120, 120),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                TextButton(
-                  onPressed: onCofirm,
-                  child: Text(
-                    LocaleKeys.buttons_update.tr,
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      barrierDismissible: false,
-    );
-  }
-
-  // add Dialog
-  static void addNewPhoneDialog(
-      {String? title,
-      required TextEditingController textEditingController,
-      RxnString? errorMessage,
-      GlobalKey<FormState>? formKey,
-      required void Function()? onCofirm}) {
-    Get.dialog(
-      Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 12),
-              Text(
-                title ?? '',
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Form(
-                  key: formKey,
-                  child: CustomTextFormField(
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    controller: textEditingController,
-                    validator: (value) {
-                      final error = FormValidator.validatePhoneNumber(value);
-                      Future.microtask(() => errorMessage!.value = error);
-                      return error;
-                    },
-                    errorMessage: errorMessage,
-                    showCountries: true,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: Text(
-                      LocaleKeys.buttons_cancel.tr,
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 225, 120, 120),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  TextButton(
-                    onPressed: onCofirm,
-                    child: Text(
-                      LocaleKeys.buttons_confirm.tr,
-                      style: const TextStyle(
-                        color: AppColors.primary,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      barrierDismissible: false,
-    );
+  static void displaySuccessDialog(
+      {required String message,
+      void Function()? onConfirmBtnTap,
+      String? tiltle,
+      bool barrierDismissible = false}) {
+    QuickAlert.show(
+        context: Get.context!,
+        barrierDismissible: barrierDismissible,
+        type: QuickAlertType.success,
+        titleColor: AppColors.info,
+        confirmBtnColor: AppColors.primary,
+        title: tiltle?.tr,
+        text: message.tr,
+        cancelBtnText: "OK",
+        onConfirmBtnTap: onConfirmBtnTap);
   }
 }

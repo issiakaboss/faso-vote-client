@@ -10,7 +10,7 @@ abstract class ApiProvider {
   static const int timeOutDuration = 200;
 
   static Future<dynamic> get(
-      {bool auth = true, required String apiURL, bool isPhone = false}) async {
+      {bool auth = true, required String apiURL}) async {
     try {
     
       var response = await http
